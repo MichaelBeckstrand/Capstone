@@ -4,7 +4,7 @@ import testUrl from './testUrl.js';
 
 class Engagements extends testUrl {
 
-    get EngagementTab() { 
+    get EngagementTab() {
         return $('span=Engagement'); }
     get editIcon() {
         return $('button[data-testid="editable-label-edit-button-title"]'); }
@@ -18,131 +18,144 @@ class Engagements extends testUrl {
         return $('[id*="primaryActionButton"]');
     }
     get executeButton() {
-    return $('[data-testid="engagement-page-execute-doc-btn"]');
-}
-get applyTemplate() {
-    return $('[data-testid="engagement-page-template-item-04b09f0a-cce7-48b2-a219-53c57ec0f68e"]');
-}
-get previewButton() {
-    return $('[data-testid="engagement-page-toggle-doc-btn"]');
-}
-   get unexecuteButton() {
-    return $('[data-testid="engagement-executed-unexecute-menu-item"]');
-}
-   get confirmExecuteButton() {
-    return $('[data-testid="confirmation-dialog-confirm-button"]');
-}
-  get showfieldsButton() {
-    return $('[data-testid="engagement-page-toggle-doc-btn"]');
-}
- get kababUnexecuteMenu() {
-    return $('[data-testid="engagement-executed-more-options-button"]');
-}
-get applyTemplateButton() {
-    return $$('[data-testid="engagement-page-apply-template-btn"]')[0];
-}
-get engagementTextBox() {
-    return $('[data-testid="engagement-page-field-textarea-blah"]');
-}
+        return $('[data-testid="engagement-page-execute-doc-btn"]');
+    }
+    get applyTemplate() {
+        return $('[data-testid="engagement-page-template-item-04b09f0a-cce7-48b2-a219-53c57ec0f68e"]');
+    }
+    get previewButton() {
+        return $('[data-testid="engagement-page-toggle-doc-btn"]');
+    }
+    get unexecuteButton() {
+        return $('[data-testid="engagement-executed-unexecute-menu-item"]');
+    }
+    get confirmExecuteButton() {
+        return $('[data-testid="confirmation-dialog-confirm-button"]');
+    }
+    get showfieldsButton() {
+        return $('[data-testid="engagement-page-toggle-doc-btn"]');
+    }
+    get kababUnexecuteMenu() {
+        return $('[data-testid="engagement-executed-more-options-button"]');
+    }
+    get applyTemplateButton() {
+        return $$('[data-testid="engagement-page-apply-template-btn"]')[0];
+    }
+    get engagementTextBox() {
+        return $('[data-testid="engagement-page-field-textarea-blah"]');
+    }
+    get mtechAddSignatory() {
+        return $$('[data-testid="link-button-Add Signatory"]')[0];
+    }
+    get signatureBox() {
+        return $('input[data-testid="engagement-page-add-signatures-checkbox"]');
+    }
+    get addUserSignature() {
+        return $('input.fui-Checkbox__input:not([data-testid="engagement-page-add-signatures-checkbox"])');
+    }
+    get selectUsersButton() {
+        return $('[data-testid="select-users-dialog-submit"]');
+    }
+    get addClientSignatory() {
+        return $$('[data-testid="link-button-Add Signatory"]')[1];
+    }
+    get addClientSignature() {
+        return $$('input.fui-Checkbox__input:not([data-testid="engagement-page-add-signatures-checkbox"])')[0];
+    }
+    get selectContactsButton() {
+        return $('[data-testid="select-contacts-submit-button"]');
+    }
+    get deleteMtechSignature() {
+        return $$('[data-testid="person-control-delete-button"]')[1];
+    }
+    get deleteClientSignature() {
+        return $$('[data-testid="person-control-delete-button"]')[2];
+    }
+    get removeFieldButton() {
+        return $('[data-testid="engagement-page-remove-field-btn-blah"]');
+    }
 
+    async resetEngagement() {
+     await this.removeFieldButton.waitForClickable({ timeout: 10000 });
+     await this.removeFieldButton.click();
+     await this.clickSaveButton();
+     await browser.pause(2000);
+     await browser.refresh();
 
-
-   get mtechAddSignatory() {
-    return $('[data-testid="link-button-Add Signatory"]')[0]; // first button
-}
-   get signatureBox() { 
-    return $('input[data-testid="engagement-page-add-signatures-checkbox"]'); 
-}
-get addUserSignature() {
-    return $('input.fui-Checkbox__input:not([data-testid="engagement-page-add-signatures-checkbox"])');
-}
-get selectUsersButton() {
-    return $('[data-testid="select-users-dialog-submit"]');
-}
-get addClientSignatory() {
-    return $('[data-testid="link-button-Add Signatory"]')[1]; // second button
-}
-get addClientSignature() {
-    return $('input.fui-Checkbox__input:not([data-testid="engagement-page-add-signatures-checkbox"])')[0];
-}
-get selectContactsButton() {
-    return $('[data-testid="select-contacts-submit-button"]');
-}
-get deleteMtechSignature() {
-    return $('[data-testid="person-control-delete-button"]')[1];
-}
-get deleteClientSignature() {
-    return $('[data-testid="person-control-delete-button"]')[2];
-}
-
-async savingEngagementText() {
-                    await this.engagementTextBox.click();
-                    await browser.keys([Key.Command, 'a']);
-                    await browser.keys('Updated Engagement Text');
-                    await browser.keys(Key.Enter);
-                    await browser.pause(2000);
-                    await this.clickSaveButton();
-                    await browser.pause(2000);
-                    await browser.refresh();
-                    await browser.pause(2000);
-
-
-}
-async engagementTextRefresh() {
-                    await this.engagementTextBox.click();
-                    await browser.keys([Key.Command, 'a']);
-                    await browser.keys('Updated Engagement Text');
-                    await browser.keys(Key.Enter);
-                    await browser.pause(2000);
-                    await browser.refresh();
-                    await browser.pause(2000);
-}
-
-
-   
-   async addingUserSignature() {
-    await this.addUserSignature.click();
-    await this.selectUsersButton.click();
-
-   }
-
-   async deletingClientSignature() {
-    const buttons = await $$('[data-testid="person-control-delete-button"]');
-    await buttons[1].click();
-    await browser.pause(3000);
-
-   }
-   async deletingMtechSignature() {
-    await this.deleteMtechSignature.click();
-    await browser.pause(3000);
-
-   }
-   async addingClientSignature() {
-    await this.addClientSignature.click();
-    await this.selectContactsButton.click();
+     }
     
-}
-   
-   async navigateToEngagements() {
+    async whenClickable(element) {
+        await element.waitForClickable({ timeout: 10000 });
+        await element.click();
+    }
+
+    async savingEngagementText(text) {
+        await this.engagementTextBox.click();
+        await browser.keys([Key.Command, 'a']);
+        await browser.keys(text);
+        await browser.keys(Key.Enter);
+        await browser.pause(2000);
+        await this.clickSaveButton();
+        await browser.pause(2000);
+        await browser.refresh();
+        await browser.pause(2000);
+    }
+
+    async engagementTextRefresh(text) {
+        await this.engagementTextBox.click();
+        await browser.keys([Key.Command, 'a']);
+        await browser.keys(text);
+        await browser.keys(Key.Enter);
+        await browser.pause(2000);
+        await browser.refresh();
+        await browser.pause(2000);
+    }
+
+    async addingUserSignature() {
+        await this.addUserSignature.click();
+        await this.selectUsersButton.click();
+    }
+
+    async deletingClientSignature() {
+        const buttons = await $$('[data-testid="person-control-delete-button"]');
+        await buttons[1].click();
+        await browser.pause(3000);
+    }
+
+    async deletingMtechSignature() {
+        await this.deleteMtechSignature.click();
+        await browser.pause(3000);
+    }
+
+    async addingClientSignature() {
+        await this.addClientSignature.click();
+        await this.selectContactsButton.click();
+    }
+
+    async navigateToEngagements() {
         await this.engagementsTab.waitForClickable();
         await this.engagementsTab.click();
     }
-   async clickSignatureBox() {
+
+    async clickSignatureBox() {
         await this.signatureBox.waitForExist({ timeout: 10000 });
         await browser.execute(el => el.click(), await this.signatureBox);
-   }
-  async clickMtechAddSignatory() {
-    await this.mtechAddSignatory.waitForExist({ timeout: 10000 });
+    }
+
+    async clickMtechAddSignatory() {
+        await this.mtechAddSignatory.waitForExist({ timeout: 10000 });
         await browser.execute(el => el.click(), await this.mtechAddSignatory);
-  }
-  async clickSelectUsersButton() {
-    await this.selectUsersButton.waitForExist({ timeout: 10000 });
+    }
+
+    async clickSelectUsersButton() {
+        await this.selectUsersButton.waitForExist({ timeout: 10000 });
         await browser.execute(el => el.click(), await this.selectUsersButton);
-  }
-  async clickClientAddSignatory() {
-    await this.addClientSignatory.waitForExist({ timeout: 10000 });
+    }
+
+    async clickClientAddSignatory() {
+        await this.addClientSignatory.waitForExist({ timeout: 10000 });
         await browser.execute(el => el.click(), await this.addClientSignatory);
-  }
+    }
    
     async enterNewTitle(text) {
         await browser.pause(2000);

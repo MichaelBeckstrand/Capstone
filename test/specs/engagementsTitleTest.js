@@ -1,7 +1,7 @@
 
 // import { browser, expect } from '@wdio/globals';
-// import LoginCredentials from '../pageobjects/loginCredenticals.js';
-// import Engagements from '../pageobjects/engagementsResources.js';
+// import LoginCredentials from '../pageobjects/loginCredencials.js';
+// import Engagements from '../pageobjects/engagementResources.js';
 
 
 // describe('Authentication', () => {
@@ -24,5 +24,5 @@
 //           await Engagements.clickEngagementTab();
 //           await expect(Engagements.engagementDoc).toBeDisplayed();
 
-//     });       //updating title test 
+//     });
 // });
