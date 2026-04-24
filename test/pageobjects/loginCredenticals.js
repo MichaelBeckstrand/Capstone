@@ -16,6 +16,9 @@ class LoginCredentials extends testUrl {
     get loggedIn() {
         return $('div[class^="___hg8xoh0"]');
     }
+    get logout() {
+        return $('[data-testid="menu-logout-button"]');
+    }
 
     async login(username, password) {
         await this.typeUsername.setValue(username);

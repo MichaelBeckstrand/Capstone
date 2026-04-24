@@ -75,23 +75,15 @@ class Engagements extends testUrl {
         return $('[data-testid="engagement-page-remove-field-btn-blah"]');
     }
 
-    async resetEngagement() {
-     await this.removeFieldButton.waitForClickable({ timeout: 10000 });
-     await this.removeFieldButton.click();
-     await this.clickSaveButton();
-     await browser.pause(2000);
-     await browser.refresh();
-
-     }
-    
     async whenClickable(element) {
+        await element.waitForExist({ timeout: 10000 });
         await element.waitForClickable({ timeout: 10000 });
         await element.click();
     }
 
     async savingEngagementText(text) {
         await this.engagementTextBox.click();
-        await browser.keys([Key.Command, 'a']);
+        await browser.keys([Key.Control, 'a']);
         await browser.keys(text);
         await browser.keys(Key.Enter);
         await browser.pause(2000);
@@ -103,7 +95,7 @@ class Engagements extends testUrl {
 
     async engagementTextRefresh(text) {
         await this.engagementTextBox.click();
-        await browser.keys([Key.Command, 'a']);
+        await browser.keys([Key.Control, 'a']);
         await browser.keys(text);
         await browser.keys(Key.Enter);
         await browser.pause(2000);
@@ -156,51 +148,50 @@ class Engagements extends testUrl {
         await this.addClientSignatory.waitForExist({ timeout: 10000 });
         await browser.execute(el => el.click(), await this.addClientSignatory);
     }
-   
+
     async enterNewTitle(text) {
         await browser.pause(2000);
-        await this.editIcon.waitForExist();
+        await this.engagementDoc.moveTo();
+        await this.editIcon.waitForExist({ timeout: 10000 });
         await browser.execute(el => el.classList.remove('hidden'), await this.editIcon);
         await this.editIcon.click();
         await this.inputNewTitle.waitForDisplayed();
         await this.inputNewTitle.click();
-        await browser.keys([Key.Command, 'a']);
+        await browser.keys([Key.Control, 'a']);
         await browser.keys(text);
         await browser.keys(Key.Enter);
-        
-
-        
-         
     }
 
     async saveEngagement() {
-            await this.engagementSaveButton.waitForExist({ timeout: 10000 });
-            await this.engagementSaveButton.waitForClickable({ timeout: 10000 });
-            await this.engagementSaveButton.click();
-            await browser.pause(2000);
+        await this.engagementSaveButton.waitForExist({ timeout: 10000 });
+        await this.engagementSaveButton.waitForClickable({ timeout: 10000 });
+        await this.engagementSaveButton.click();
+        await browser.pause(2000);
     }
 
-   
     async getDisplayedTitle() {
         return await this.titleDisplay.getText();
     }
 
     async selectCase() {
         await browser.url('https://app.thecasework.com/case/ba3e61e7-8a1e-405b-968f-d201059f4b97');
-
     }
+
     async clickEngagementTab() {
         await this.EngagementTab.waitForClickable();
         await this.EngagementTab.click();
         await this.engagementDoc.waitForDisplayed({ timeout: 10000 });
     }
+
     async clickEditIcon() {
         await this.editIcon.waitForClickable();
         await this.editIcon.click();
     }
+
     async typeNewTitle(text) {
         await this.inputNewTitle.setValue(text);
     }
+
     async clickSaveButton() {
         await this.engagementSaveButton.click();
     }
