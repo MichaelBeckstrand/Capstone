@@ -51,7 +51,7 @@ class Engagements extends testUrl {
         return $('input[data-testid="engagement-page-add-signatures-checkbox"]');
     }
     get addUserSignature() {
-        return $('input.fui-Checkbox__input:not([data-testid="engagement-page-add-signatures-checkbox"])');
+        return $('input[id^="checkbox-"]:not([data-testid="engagement-page-add-signatures-checkbox"])');
     }
     get selectUsersButton() {
         return $('[data-testid="select-users-dialog-submit"]');
@@ -60,7 +60,7 @@ class Engagements extends testUrl {
         return $$('[data-testid="link-button-Add Signatory"]')[1];
     }
     get addClientSignature() {
-        return $$('input.fui-Checkbox__input:not([data-testid="engagement-page-add-signatures-checkbox"])')[0];
+        return $$('input[id^="checkbox-"]:not([data-testid="engagement-page-add-signatures-checkbox"])')[0];
     }
     get selectContactsButton() {
         return $('[data-testid="select-contacts-submit-button"]');
@@ -74,37 +74,43 @@ class Engagements extends testUrl {
     get removeFieldButton() {
         return $('[data-testid="engagement-page-remove-field-btn-blah"]');
     }
+    get undoChangesButton() {
+        return $('button.fui-SplitButton__menuButton');
+    }
 
     async whenClickable(element) {
-        await element.waitForExist({ timeout: 10000 });
-        await element.waitForClickable({ timeout: 10000 });
+        await element.waitForExist({ timeout: 20000 });
+        await element.waitForClickable({ timeout: 20000 });
         await element.click();
     }
 
     async savingEngagementText(text) {
+        await this.engagementTextBox.waitForClickable({ timeout: 10000 });
         await this.engagementTextBox.click();
-        await browser.keys([Key.Control, 'a']);
-        await browser.keys(text);
-        await browser.keys(Key.Enter);
+        await browser.keys(['Command', 'a']);
+        await browser.pause(2000);
+        await this.engagementTextBox.addValue(text);
         await browser.pause(2000);
         await this.clickSaveButton();
-        await browser.pause(2000);
+        await browser.pause(4000);
         await browser.refresh();
         await browser.pause(2000);
     }
 
     async engagementTextRefresh(text) {
+        await this.engagementTextBox.waitForClickable({ timeout: 10000 });
         await this.engagementTextBox.click();
-        await browser.keys([Key.Control, 'a']);
-        await browser.keys(text);
-        await browser.keys(Key.Enter);
+        await browser.keys(['Command', 'a']);
+        await browser.pause(2000);
+        await this.engagementTextBox.addValue(text);
         await browser.pause(2000);
         await browser.refresh();
         await browser.pause(2000);
     }
 
     async addingUserSignature() {
-        await this.addUserSignature.click();
+        await $('input[id^="checkbox-"]:not([data-testid="engagement-page-add-signatures-checkbox"])').waitForExist({ timeout: 10000 });
+        await browser.execute(el => el.click(), await this.addUserSignature);
         await this.selectUsersButton.click();
     }
 
@@ -120,6 +126,7 @@ class Engagements extends testUrl {
     }
 
     async addingClientSignature() {
+        await $('input[id^="checkbox-"]:not([data-testid="engagement-page-add-signatures-checkbox"])').waitForExist({ timeout: 10000 });
         await this.addClientSignature.click();
         await this.selectContactsButton.click();
     }
@@ -135,8 +142,9 @@ class Engagements extends testUrl {
     }
 
     async clickMtechAddSignatory() {
-        await this.mtechAddSignatory.waitForExist({ timeout: 10000 });
-        await browser.execute(el => el.click(), await this.mtechAddSignatory);
+        await $('[data-testid="link-button-Add Signatory"]').waitForExist({ timeout: 10000 });
+        const signatoryButtons = await $$('[data-testid="link-button-Add Signatory"]');
+        await browser.execute(el => el.click(), signatoryButtons[0]);
     }
 
     async clickSelectUsersButton() {
@@ -157,14 +165,27 @@ class Engagements extends testUrl {
         await this.editIcon.click();
         await this.inputNewTitle.waitForDisplayed();
         await this.inputNewTitle.click();
-        await browser.keys([Key.Control, 'a']);
+        await browser.keys([Key.Command, 'a']);
         await browser.keys(text);
         await browser.keys(Key.Enter);
     }
 
+    async ensureUnexecuted() {
+        await browser.pause(1000);
+        const kabab = await this.kababUnexecuteMenu;
+        const isExecuted = await kabab.isExisting();
+        if (isExecuted) {
+            await kabab.waitForClickable({ timeout: 10000 });
+            await browser.execute(el => el.click(), kabab);
+            await browser.pause(2000);
+            await this.whenClickable(this.unexecuteButton);
+            await browser.pause(1000);
+        }
+    }
+
     async saveEngagement() {
-        await this.engagementSaveButton.waitForExist({ timeout: 10000 });
-        await this.engagementSaveButton.waitForClickable({ timeout: 10000 });
+        await this.engagementSaveButton.waitForExist({ timeout: 20000 });
+        await this.engagementSaveButton.waitForClickable({ timeout: 20000 });
         await this.engagementSaveButton.click();
         await browser.pause(2000);
     }

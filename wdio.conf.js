@@ -21,12 +21,42 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/specs/**/*.js'
+        // Interleaved so 5 concurrent slots never pull more than 1-2 from the same section.
+        // Order within each section follows data dependencies (e.g. add → edit → complete → close).
+
+        './test/specs/securityTest.js',                       // Auth   — slot 1
+
+        './test/specs/caseTask_requiredFields.js',            // Case   — slot 2
+        './test/specs/dashboardTask_requiredFields.js',       // Dash   — slot 3
+        './test/specs/applyTemplateTest.js',                  // Engage — slot 4
+        './test/specs/caseTask_addTask.js',                   // Case   — slot 5
+
+        './test/specs/dashboardTask_addTask.js',              // Dash
+        './test/specs/engagementTitleTest.js',                // Engage
+        './test/specs/caseTask_editTask.js',                  // Case
+        './test/specs/dashboardTask_editTask.js',             // Dash
+        './test/specs/addSignaturesTest.js',                  // Engage
+
+        './test/specs/caseTask_addNotes.js',                  // Case
+        './test/specs/dashboardTask_addNotes.js',             // Dash
+        './test/specs/addSignaturesTest_noContactSelected.js',// Engage
+        './test/specs/caseTask_invalidTimer.js',              // Case
+        './test/specs/dashboardTask_invalidTimer.js',         // Dash
+
+        './test/specs/addSignaturesTest_noUserSelected.js',   // Engage
+        './test/specs/caseTask_overdueTask.js',               // Case
+        './test/specs/dashboardTask_overdueTask.js',          // Dash
+        './test/specs/caseTask_completeTask.js',              // Case
+        './test/specs/dashboardTask_completeTask.js',         // Dash
+
+        './test/specs/caseTask_closeTask.js',                 // Case
+        './test/specs/dashboardTask_closeTask.js',            // Dash
     ],
-    // Patterns to exclude.
     exclude: [
-        // 'path/to/excluded/files'
+        './test/specs/Dashboard.js',
+        './test/specs/Case.js',
     ],
+
     //
     // ============
     // Capabilities
@@ -43,7 +73,7 @@ export const config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+    maxInstances: 5,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -129,7 +159,7 @@ export const config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 180000
     },
 
     //

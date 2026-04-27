@@ -14,8 +14,9 @@ class LoginCredentials extends testUrl {
     }
 
     get loggedIn() {
-        return $('div[class^="___hg8xoh0"]');
+        return $('[data-testid="menu-notifications-button"]');
     }
+
     get logout() {
         return $('[data-testid="menu-logout-button"]');
     }

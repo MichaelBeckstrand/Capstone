@@ -23,6 +23,18 @@ class CaseTasks extends Tasks {
         return $('[aria-label="More items"]');
     }
 
+    get overdueIndicator() {
+        return $('span=Overdue');
+    }
+
+    get caseAddTimeButton() {
+        return $('[data-testid="custom-data-table-context-menu-item-Add Time"]');
+    }
+
+    get milestoneFilterButton() {
+        return $('span=Milestone');
+    }
+
     async clickKebabMenu() {
         await $('[aria-label="More items"]').waitForExist({ timeout: 10000 });
         await browser.execute(() => {
@@ -39,7 +51,14 @@ class CaseTasks extends Tasks {
     }
 
     async completeTask() {
-        await this.clickKebabMenu();
+        await this.milestoneFilterButton.waitForClickable({ timeout: 10000 });
+        await this.milestoneFilterButton.click();
+        await browser.pause(1000);
+        await browser.execute(() => {
+            const btns = document.querySelectorAll('[aria-label="More items"]');
+            if (btns.length > 0) btns[0].click();
+        });
+        await browser.pause(1500);
         await $('[data-testid="custom-data-table-context-menu-item-Complete Task"]').waitForExist({ timeout: 10000 });
         await $('[data-testid="custom-data-table-context-menu-item-Complete Task"]').waitForClickable({ timeout: 10000 });
         await $('[data-testid="custom-data-table-context-menu-item-Complete Task"]').click();
@@ -51,6 +70,13 @@ class CaseTasks extends Tasks {
         await $('[data-testid="custom-data-table-context-menu-item-Close Task"]').waitForExist({ timeout: 10000 });
         await $('[data-testid="custom-data-table-context-menu-item-Close Task"]').click();
         await browser.pause(2000);
+    }
+
+    async clickCaseAddTimeButton() {
+        await this.clickKebabMenu();
+        await this.caseAddTimeButton.waitForExist({ timeout: 10000 });
+        await this.caseAddTimeButton.click();
+        await browser.pause(1000);
     }
 
     async selectAssignTo() {
@@ -87,6 +113,7 @@ class CaseTasks extends Tasks {
         await this.whenClickable(this.selectMilestoneDropdown);
         await this.selectMilestoneDropdown.waitForClickable({ timeout: 10000 });
         await this.selectMilestoneDropdown.click();
+        await browser.pause(3000);
         await browser.keys(Key.ArrowDown);
         await browser.keys(Key.ArrowDown);
         await browser.keys(Key.Enter);
