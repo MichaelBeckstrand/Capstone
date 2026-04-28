@@ -10,14 +10,15 @@ describe('Case Task Tests', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Tasks.navigateToCasePage();
+        await Tasks.navigateToCasePage('https://app.thecasework.com/case/4c7b571b-a2f5-4d86-84cb-b8f9dbb671bf');
+
 
         const taskDescription = `Overdue task testing ${Date.now()}`;
 
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
         await browser.pause(5000);
         await Tasks.selectAssignTo();
-        await Tasks.selectMilestone();
+        await Tasks.selectMilestone();  
         await Tasks.enterTaskText(taskDescription);
         await Tasks.enterPastDueDate();
         await Tasks.saveTask();

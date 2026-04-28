@@ -38,5 +38,6 @@ describe('Add Task', () => {
         await Tasks.enterDueDate();
         await Tasks.saveTask();
         await browser.pause(1000);
+        await LoginCredentials.logout.click();
     });
 }); //dashboardTask_addTask

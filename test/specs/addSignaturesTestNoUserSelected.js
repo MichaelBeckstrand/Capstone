@@ -11,7 +11,7 @@ describe('Authentication', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Engagements.selectCase();
+        await Engagements.selectThirdCase();
         await Engagements.clickEngagementTab();
         await browser.pause(4000);
         await Engagements.ensureUnexecuted();
@@ -21,7 +21,7 @@ describe('Authentication', () => {
             await Engagements.clickSignatureBox();
             await browser.pause(2000);
         }
-
+        await browser.pause(4000);
         await Engagements.clickMtechAddSignatory();
         await browser.pause(2000);
         await expect(Engagements.selectUsersButton).not.toBeClickable();

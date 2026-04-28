@@ -11,8 +11,17 @@ describe('Add Task', () => {
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
 
+        const setupTask = `Setup task ${Date.now()}`;
+        await Tasks.whenClickable(Tasks.addTaskButton);
+        await Tasks.selectCase();
+        await Tasks.selectMilestone();
+        await Tasks.enterTaskText(setupTask);
+        await Tasks.saveTask();
+        await browser.pause(1000);
+
         await Tasks.editAllFieldsUnsaved();
         await Tasks.editAllFields();
         await browser.pause(2000);
+        await LoginCredentials.logout.click();
     });
 }); //dashboardTask_editTask

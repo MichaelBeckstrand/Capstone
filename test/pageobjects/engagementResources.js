@@ -194,8 +194,56 @@ class Engagements extends testUrl {
         return await this.titleDisplay.getText();
     }
 
-    async selectCase() {
+    async selectFirstCase() {
         await browser.url('https://app.thecasework.com/case/ba3e61e7-8a1e-405b-968f-d201059f4b97');
+    }
+
+    async selectSecondCase() {
+        await browser.url('https://app.thecasework.com/case/5b1e2961-260a-4b1c-8f66-d7d0257ab0ee');
+    }
+
+    async selectThirdCase() {
+        await browser.url('https://app.thecasework.com/case/96f47b09-3a45-4a13-9f27-83ab113a9550');
+    }
+
+    async selectFourthCase() {
+        await browser.url('https://app.thecasework.com/case/d4d945c8-c966-4599-b647-8b9677997d43');
+    }
+
+    async selectFifthCase() {
+        await browser.url('https://app.thecasework.com/case/0a535084-088e-4345-9114-c7dc79cc5cfe');
+    }
+
+    async selectSixthCase() {
+        await browser.url('https://app.thecasework.com/case/b121cc5d-7310-4147-8bfd-7048a3c16ec3');
+    }
+
+    async selectSeventhCase() {
+        await browser.url('https://app.thecasework.com/case/f05c478f-4211-47ad-8ea4-9ebce4f61bdc');
+    }
+
+    async selectEighthCase() {
+        await browser.url('https://app.thecasework.com/case/a4430f97-e541-43ac-b9ec-2a5b59103029');
+    }
+
+    async selectNinthCase() {
+        await browser.url('https://app.thecasework.com/case/3e759be4-26a3-4add-8238-a64194bc1ba3');
+    }
+
+    async selectTenthCase() {
+        await browser.url('https://app.thecasework.com/case/6395222e-d225-492f-a6a3-7f0e021d1f3b');
+    }
+
+    async selectEleventhCase() {
+        await browser.url('https://app.thecasework.com/case/4c7b571b-a2f5-4d86-84cb-b8f9dbb671bf');
+    }
+
+    async selectTwelfthCase() {
+        await browser.url('https://app.thecasework.com/case/28398c10-f24c-4229-8246-d64eb2b1be58');
+    }
+
+    async selectThirteenthCase() {
+        await browser.url('https://app.thecasework.com/case/5309d590-1c80-4d68-a0c3-6c323f09d922');
     }
 
     async clickEngagementTab() {

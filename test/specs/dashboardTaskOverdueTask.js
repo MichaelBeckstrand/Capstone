@@ -22,5 +22,6 @@ describe('Add Task', () => {
         await browser.pause(1000);
 
         await expect(Tasks.overdueIndicator).toBeDisplayed();
+        await LoginCredentials.logout.click();
     });
 }); //dashboardTask_overdueTask

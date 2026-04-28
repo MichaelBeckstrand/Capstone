@@ -10,7 +10,7 @@ describe('Engagement Template', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Engagements.selectCase();
+        await Engagements.selectFourthCase();
         await Engagements.clickEngagementTab();
         await Engagements.ensureUnexecuted();
 

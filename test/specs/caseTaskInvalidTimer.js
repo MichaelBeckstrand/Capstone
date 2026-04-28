@@ -1,8 +1,8 @@
 import { browser, expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
-import Tasks from '../pageobjects/taskResources.js';
+import Tasks from '../pageobjects/caseTaskResources.js';
 
-describe('Add Task', () => {
+describe('Case Task Tests', () => {
      it('should input invalid entries into timer add time function', async () => {
         await LoginCredentials.url();
         await LoginCredentials.login(
@@ -10,23 +10,33 @@ describe('Add Task', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
+        await Tasks.navigateToCasePage('https://app.thecasework.com/case/6395222e-d225-492f-a6a3-7f0e021d1f3b');
 
-        await Tasks.clickAddTimeButton();
+        const setupTask = `Setup task ${Date.now()}`;
+        await Tasks.whenClickable(Tasks.caseAddTaskButton);
+        await browser.pause(5000);
+        await Tasks.selectAssignTo();
+        await Tasks.selectMilestone();
+        await Tasks.enterTaskText(setupTask);
+        await Tasks.saveTask();
+        await browser.pause(1000);
+
+        await Tasks.clickCaseAddTimeButton();
         await Tasks.enterHours(999999999);
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
         await browser.pause(1000);
 
-        await Tasks.clickAddTimeButton();
+        await Tasks.clickCaseAddTimeButton();
         await Tasks.enterHours('!@#$%^&*');
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
         await browser.pause(1000);
 
-        await Tasks.clickAddTimeButton();
+        await Tasks.clickCaseAddTimeButton();
         await Tasks.enterHours('abcdefgh');
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
         await browser.pause(1000);
     });
-}); //dashboardTask_invalidTimer
+});

@@ -14,7 +14,7 @@ class Tasks extends testUrl {
         return $('[data-testid="case-control-e3eba00b-1d70-4a5e-92a4-61111f5521f8"]');
     }
     get selectMilestoneDropdown() {
-        return $('button[aria-haspopup="menu"]*=Select Milestone');
+        return $('[data-testid="milestone-dropdown-menu"]');
     }
 
     get selectAddtime() {

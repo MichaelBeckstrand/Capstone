@@ -11,7 +11,7 @@ describe('Authentication', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Engagements.selectCase();
+        await Engagements.selectThirteenthCase();
         await Engagements.clickEngagementTab();
         await expect(Engagements.engagementDoc).toBeDisplayed();
         await Engagements.ensureUnexecuted();

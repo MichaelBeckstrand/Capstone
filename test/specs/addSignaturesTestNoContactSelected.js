@@ -11,16 +11,17 @@ describe('Authentication', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Engagements.selectCase();
+        await Engagements.selectSecondCase();
         await Engagements.clickEngagementTab();
         await browser.pause(4000);
         await Engagements.ensureUnexecuted();
+
         const isChecked = await Engagements.signatureBox.isSelected();
                 if (!isChecked) {
                     await Engagements.clickSignatureBox();
                     await browser.pause(2000);
                 }
-        await browser.pause(2000);
+        await browser.pause(4000);
         await Engagements.clickClientAddSignatory();
         await browser.pause(2000);
         await expect(Engagements.selectContactsButton).not.toBeClickable();

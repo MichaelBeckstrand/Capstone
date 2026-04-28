@@ -3,7 +3,7 @@ import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/taskResources.js';
 
 describe('Add Task', () => {
-     it('should complete the bottom task', async () => {
+     it('should close the bottom task', async () => {
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
@@ -11,7 +11,16 @@ describe('Add Task', () => {
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
 
-        await Tasks.completeTask();
+        const setupTask = `Setup task ${Date.now()}`;
+        await Tasks.whenClickable(Tasks.addTaskButton);
+        await Tasks.selectCase();
+        await Tasks.selectMilestone();
+        await Tasks.enterTaskText(setupTask);
+        await Tasks.saveTask();
+        await browser.pause(1000);
+
+        await Tasks.closeTask();
         await browser.pause(2000);
+        await LoginCredentials.logout.click();
     });
-}); //dashboardTask_completeTask
+}); //dashboardTask_closeTask

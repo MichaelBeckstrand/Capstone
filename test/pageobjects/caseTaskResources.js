@@ -99,8 +99,8 @@ class CaseTasks extends Tasks {
         await this.assignToSecondOption.click();
     }
 
-    async navigateToCasePage() {
-        await browser.url('https://app.thecasework.com/case/ba3e61e7-8a1e-405b-968f-d201059f4b97');
+    async navigateToCasePage(url = 'https://app.thecasework.com/case/ba3e61e7-8a1e-405b-968f-d201059f4b97') {
+        await browser.url(url);
         await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 10000 });
         await $('[data-testid="view-edit-case-tab-case-info"]').click();
         await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 15000 });

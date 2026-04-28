@@ -10,7 +10,16 @@ describe('Case Task Tests', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Tasks.navigateToCasePage();
+        await Tasks.navigateToCasePage('https://app.thecasework.com/case/a4430f97-e541-43ac-b9ec-2a5b59103029');
+
+        const setupTask = `Setup task ${Date.now()}`;
+        await Tasks.whenClickable(Tasks.caseAddTaskButton);
+        await browser.pause(5000);
+        await Tasks.selectAssignTo();
+        await Tasks.selectMilestone();
+        await Tasks.enterTaskText(setupTask);
+        await Tasks.saveTask();
+        await browser.pause(1000);
 
         await Tasks.closeTask();
         await browser.pause(2000);

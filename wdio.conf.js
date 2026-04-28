@@ -21,36 +21,33 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        // Interleaved so 5 concurrent slots never pull more than 1-2 from the same section.
-        // Order within each section follows data dependencies (e.g. add → edit → complete → close).
+        './test/specs/securityTest.js',
 
-        './test/specs/securityTest.js',                       // Auth   — slot 1
+        './test/specs/caseTaskRequiredFields.js',
+        './test/specs/applyTemplateTest.js',
+        './test/specs/caseTaskAddTask.js',
+        './test/specs/engagementTitleTest.js',
+        './test/specs/caseTaskEditTask.js',
+        './test/specs/addSignaturesTest.js',
+        './test/specs/caseTaskAddNotes.js',
+        './test/specs/addSignaturesTestNoContactSelected.js',
+        './test/specs/caseTaskInvalidTimer.js',
+        './test/specs/addSignaturesTestNoUserSelected.js',
+        './test/specs/caseTaskOverdueTask.js',
+        './test/specs/caseTaskCompleteTask.js',
+        './test/specs/caseTaskCloseTask.js',
 
-        './test/specs/caseTask_requiredFields.js',            // Case   — slot 2
-        './test/specs/dashboardTask_requiredFields.js',       // Dash   — slot 3
-        './test/specs/applyTemplateTest.js',                  // Engage — slot 4
-        './test/specs/caseTask_addTask.js',                   // Case   — slot 5
-
-        './test/specs/dashboardTask_addTask.js',              // Dash
-        './test/specs/engagementTitleTest.js',                // Engage
-        './test/specs/caseTask_editTask.js',                  // Case
-        './test/specs/dashboardTask_editTask.js',             // Dash
-        './test/specs/addSignaturesTest.js',                  // Engage
-
-        './test/specs/caseTask_addNotes.js',                  // Case
-        './test/specs/dashboardTask_addNotes.js',             // Dash
-        './test/specs/addSignaturesTest_noContactSelected.js',// Engage
-        './test/specs/caseTask_invalidTimer.js',              // Case
-        './test/specs/dashboardTask_invalidTimer.js',         // Dash
-
-        './test/specs/addSignaturesTest_noUserSelected.js',   // Engage
-        './test/specs/caseTask_overdueTask.js',               // Case
-        './test/specs/dashboardTask_overdueTask.js',          // Dash
-        './test/specs/caseTask_completeTask.js',              // Case
-        './test/specs/dashboardTask_completeTask.js',         // Dash
-
-        './test/specs/caseTask_closeTask.js',                 // Case
-        './test/specs/dashboardTask_closeTask.js',            // Dash
+        // Grouped so they run sequentially in one worker — prevents concurrent access to the shared dashboard
+        [
+            './test/specs/dashboardTaskRequiredFields.js',
+            './test/specs/dashboardTaskAddTask.js',
+            './test/specs/dashboardTaskEditTask.js',
+            './test/specs/dashboardTaskAddNotes.js',
+            './test/specs/dashboardTaskInvalidTimer.js',
+            './test/specs/dashboardTaskOverdueTask.js',
+            './test/specs/dashboardTaskCompleteTask.js',
+            './test/specs/dashboardTaskCloseTask.js',
+        ],
     ],
     exclude: [
         './test/specs/Dashboard.js',
@@ -73,7 +70,7 @@ export const config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 5,
+    maxInstances: 3,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
