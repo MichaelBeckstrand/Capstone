@@ -41,11 +41,11 @@ class CaseTasks extends Tasks {
             const btns = document.querySelectorAll('[aria-label="More items"]');
             if (btns.length > 0) btns[0].click();
         });
-        await browser.pause(1500);
+        await $('[role="menu"]').waitForDisplayed({ timeout: 10000 });
     }
 
     async clickEditIcon() {
-        await this.clickKebabMenu();
+        await this.whenClickable(this.kebabMenuButton)
         await $('[data-testid="custom-data-table-context-menu-item-Edit Task"]').waitForExist({ timeout: 10000 });
         await $('[data-testid="custom-data-table-context-menu-item-Edit Task"]').click();
     }
@@ -53,37 +53,32 @@ class CaseTasks extends Tasks {
     async completeTask() {
         await this.milestoneFilterButton.waitForClickable({ timeout: 10000 });
         await this.milestoneFilterButton.click();
-        await browser.pause(1000);
         await browser.execute(() => {
             const btns = document.querySelectorAll('[aria-label="More items"]');
             if (btns.length > 0) btns[0].click();
         });
-        await browser.pause(1500);
         await $('[data-testid="custom-data-table-context-menu-item-Complete Task"]').waitForExist({ timeout: 10000 });
         await $('[data-testid="custom-data-table-context-menu-item-Complete Task"]').waitForClickable({ timeout: 10000 });
         await $('[data-testid="custom-data-table-context-menu-item-Complete Task"]').click();
-        await browser.pause(2000);
     }
 
     async closeTask() {
         await this.clickKebabMenu();
         await $('[data-testid="custom-data-table-context-menu-item-Close Task"]').waitForExist({ timeout: 10000 });
         await $('[data-testid="custom-data-table-context-menu-item-Close Task"]').click();
-        await browser.pause(2000);
     }
 
     async clickCaseAddTimeButton() {
         await this.clickKebabMenu();
         await this.caseAddTimeButton.waitForExist({ timeout: 10000 });
         await this.caseAddTimeButton.click();
-        await browser.pause(1000);
     }
 
     async selectAssignTo() {
+        await this.caseAvatar.waitForDisplayed({ timeout: 20000 });
         await this.assignUserDropdown.waitForExist({ timeout: 10000 });
         await this.assignUserDropdown.waitForClickable({ timeout: 10000 });
         await this.assignUserDropdown.click();
-        await browser.pause(1000);
         await this.assignToFirstOption.waitForExist({ timeout: 10000 });
         await this.assignToFirstOption.waitForClickable({ timeout: 10000 });
         await this.assignToFirstOption.click();
@@ -93,7 +88,6 @@ class CaseTasks extends Tasks {
         await this.assignUserDropdown.waitForExist({ timeout: 10000 });
         await this.assignUserDropdown.waitForClickable({ timeout: 10000 });
         await this.assignUserDropdown.click();
-        await browser.pause(1000);
         await this.assignToSecondOption.waitForExist({ timeout: 10000 });
         await this.assignToSecondOption.waitForClickable({ timeout: 10000 });
         await this.assignToSecondOption.click();
@@ -113,7 +107,6 @@ class CaseTasks extends Tasks {
         await this.whenClickable(this.selectMilestoneDropdown);
         await this.selectMilestoneDropdown.waitForClickable({ timeout: 10000 });
         await this.selectMilestoneDropdown.click();
-        await browser.pause(3000);
         await browser.keys(Key.ArrowDown);
         await browser.keys(Key.ArrowDown);
         await browser.keys(Key.Enter);
@@ -122,34 +115,34 @@ class CaseTasks extends Tasks {
 
     async editAllFieldsUnsavedCase() {
         await this.clickEditIcon();
-        await browser.pause(2000);
+        
         await this.selectSecondAssignTo();
-        await browser.pause(2000);
+       
         await this.selectCaseNewMilestone();
-        await browser.pause(2000);
+        
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskText(newTaskDescription);
-        await browser.pause(2000);
+        
         await this.enterDueDateConditional();
-        await browser.pause(2000);
+        
         await this.cancelEdit();
-        await browser.pause(2000);
+        
     }
 
     async editAllFieldsCase() {
         await this.clickEditIcon();
-        await browser.pause(2000);
+        
         await this.selectSecondAssignTo();
-        await browser.pause(2000);
+        
         await this.selectCaseNewMilestone();
-        await browser.pause(2000);
+        
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskText(newTaskDescription);
-        await browser.pause(2000);
+        
         await this.enterDueDateConditional();
-        await browser.pause(2000);
+        
         await this.saveTask();
-        await browser.pause(2000);
+        
     }
 }
 

@@ -11,39 +11,39 @@ describe('Add Task', () => {
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
 
-        // No fields filled
+        // Nothing filled
         await Tasks.whenClickable(Tasks.addTaskButton);
-        await browser.pause(5000);
+        
         await expect(Tasks.saveTaskButton).not.toBeClickable();
         await browser.keys('Escape');
-        await browser.pause(1000);
+        
 
         // Only select a case
         await Tasks.whenClickable(Tasks.addTaskButton);
-        await browser.pause(5000);
+        
         await Tasks.selectCase();
         await expect(Tasks.saveTaskButton).not.toBeClickable();
         await browser.keys('Escape');
-        await browser.pause(500);
+        
         await browser.keys('Escape');
-        await browser.pause(1000);
+        
 
         // Only select a milestone
         await Tasks.whenClickable(Tasks.addTaskButton);
-        await browser.pause(5000);
-        await Tasks.selectMilestone();
+        
+        await Tasks.selectMilestoneDashBoard();
         await expect(Tasks.saveTaskButton).not.toBeClickable();
         await browser.keys('Escape');
-        await browser.pause(1000);
+        
 
         // Only enter text
         await Tasks.whenClickable(Tasks.addTaskButton);
-        await browser.pause(5000);
+        
         await Tasks.enterTaskText(`Incomplete task ${Date.now()}`);
-        await browser.pause(1000);
+        
         await expect(Tasks.saveTaskButton).not.toBeClickable();
         await browser.keys('Escape');
-        await browser.pause(1000);
+        
         await LoginCredentials.logout.click();
     });
 }); //dashboardTask_requiredFields

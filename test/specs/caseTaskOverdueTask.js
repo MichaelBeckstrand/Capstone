@@ -16,13 +16,13 @@ describe('Case Task Tests', () => {
         const taskDescription = `Overdue task testing ${Date.now()}`;
 
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
-        await browser.pause(5000);
+        
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();  
         await Tasks.enterTaskText(taskDescription);
         await Tasks.enterPastDueDate();
         await Tasks.saveTask();
-        await browser.pause(1000);
+        
 
         await expect(Tasks.overdueIndicator).toBeDisplayed();
     });

@@ -19,7 +19,7 @@ describe('Add Task', () => {
         await Tasks.enterTaskText(taskDescription);
         await Tasks.enterPastDueDate();
         await Tasks.saveTask();
-        await browser.pause(1000);
+        
 
         await expect(Tasks.overdueIndicator).toBeDisplayed();
         await LoginCredentials.logout.click();

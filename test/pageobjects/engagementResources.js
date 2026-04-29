@@ -77,6 +77,10 @@ class Engagements extends testUrl {
     get undoChangesButton() {
         return $('button.fui-SplitButton__menuButton');
     }
+    
+    get pdf() {
+        return $('div#main');
+    }
 
     async whenClickable(element) {
         await element.waitForExist({ timeout: 20000 });
@@ -88,24 +92,24 @@ class Engagements extends testUrl {
         await this.engagementTextBox.waitForClickable({ timeout: 10000 });
         await this.engagementTextBox.click();
         await browser.keys(['Command', 'a']);
-        await browser.pause(2000);
+        
         await this.engagementTextBox.addValue(text);
-        await browser.pause(2000);
+        
         await this.clickSaveButton();
-        await browser.pause(4000);
+        
         await browser.refresh();
-        await browser.pause(2000);
+        
     }
 
     async engagementTextRefresh(text) {
         await this.engagementTextBox.waitForClickable({ timeout: 10000 });
         await this.engagementTextBox.click();
         await browser.keys(['Command', 'a']);
-        await browser.pause(2000);
+        
         await this.engagementTextBox.addValue(text);
-        await browser.pause(2000);
+        
         await browser.refresh();
-        await browser.pause(2000);
+        
     }
 
     async addingUserSignature() {
@@ -117,12 +121,12 @@ class Engagements extends testUrl {
     async deletingClientSignature() {
         const buttons = await $$('[data-testid="person-control-delete-button"]');
         await buttons[1].click();
-        await browser.pause(3000);
+        
     }
 
     async deletingMtechSignature() {
         await this.deleteMtechSignature.click();
-        await browser.pause(3000);
+        
     }
 
     async addingClientSignature() {
@@ -158,7 +162,6 @@ class Engagements extends testUrl {
     }
 
     async enterNewTitle(text) {
-        await browser.pause(2000);
         await this.engagementDoc.moveTo();
         await this.editIcon.waitForExist({ timeout: 10000 });
         await browser.execute(el => el.classList.remove('hidden'), await this.editIcon);
@@ -171,15 +174,13 @@ class Engagements extends testUrl {
     }
 
     async ensureUnexecuted() {
-        await browser.pause(1000);
+        
         const kabab = await this.kababUnexecuteMenu;
         const isExecuted = await kabab.isExisting();
         if (isExecuted) {
             await kabab.waitForClickable({ timeout: 10000 });
             await browser.execute(el => el.click(), kabab);
-            await browser.pause(2000);
             await this.whenClickable(this.unexecuteButton);
-            await browser.pause(1000);
         }
     }
 
@@ -187,7 +188,7 @@ class Engagements extends testUrl {
         await this.engagementSaveButton.waitForExist({ timeout: 20000 });
         await this.engagementSaveButton.waitForClickable({ timeout: 20000 });
         await this.engagementSaveButton.click();
-        await browser.pause(2000);
+        
     }
 
     async getDisplayedTitle() {
@@ -196,18 +197,31 @@ class Engagements extends testUrl {
 
     async selectFirstCase() {
         await browser.url('https://app.thecasework.com/case/ba3e61e7-8a1e-405b-968f-d201059f4b97');
+        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 10000 });
+        await $('[data-testid="view-edit-case-tab-case-info"]').click();
+        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 15000 });
     }
 
     async selectSecondCase() {
         await browser.url('https://app.thecasework.com/case/5b1e2961-260a-4b1c-8f66-d7d0257ab0ee');
+        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 10000 });
+        await $('[data-testid="view-edit-case-tab-case-info"]').click();
+        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 15000 });
     }
 
     async selectThirdCase() {
         await browser.url('https://app.thecasework.com/case/96f47b09-3a45-4a13-9f27-83ab113a9550');
+         await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 10000 });
+        await $('[data-testid="view-edit-case-tab-case-info"]').click();
+        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 15000 });
     }
+
 
     async selectFourthCase() {
         await browser.url('https://app.thecasework.com/case/d4d945c8-c966-4599-b647-8b9677997d43');
+        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 10000 });
+        await $('[data-testid="view-edit-case-tab-case-info"]').click();
+        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 15000 });
     }
 
     async selectFifthCase() {

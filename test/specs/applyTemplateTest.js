@@ -18,16 +18,23 @@ describe('Engagement Template', () => {
         await Engagements.whenClickable(Engagements.applyTemplateButton);
         await Engagements.whenClickable(Engagements.applyTemplate);
         await Engagements.clickSaveButton();
-        await browser.pause(2000);
+        
 
         // Execute then immediately unexecute
         await Engagements.whenClickable(Engagements.previewButton);
-        await browser.pause(2000);
+        await Engagements.pdf.waitForDisplayed({ timeout: 20000 });
+
+
+
         await Engagements.whenClickable(Engagements.executeButton);
-        await browser.pause(2000);
+        
+        
         await Engagements.whenClickable(Engagements.confirmExecuteButton);
-        await browser.pause(2000);
+        
+
+        
         await Engagements.ensureUnexecuted();
+
 
         // Verify engagement text: unsaved changes don't persist, saved ones do
         await Engagements.whenClickable(Engagements.showfieldsButton);

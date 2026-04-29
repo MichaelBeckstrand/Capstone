@@ -14,29 +14,29 @@ describe('Case Task Tests', () => {
 
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
-        await browser.pause(5000);
+        
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);
         await Tasks.saveTask();
-        await browser.pause(1000);
+        
 
         await Tasks.clickCaseAddTimeButton();
         await Tasks.enterHours(999999999);
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
-        await browser.pause(1000);
+        
 
         await Tasks.clickCaseAddTimeButton();
         await Tasks.enterHours('!@#$%^&*');
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
-        await browser.pause(1000);
+        
 
         await Tasks.clickCaseAddTimeButton();
         await Tasks.enterHours('abcdefgh');
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
-        await browser.pause(1000);
+        
     });
 });

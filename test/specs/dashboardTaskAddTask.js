@@ -25,7 +25,7 @@ describe('Add Task', () => {
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
         await Tasks.saveTask();
-        await browser.pause(1000);
+        
 
         await expect($(`div=${taskDescription}`)).toBeDisplayed();
 
@@ -37,7 +37,7 @@ describe('Add Task', () => {
         await Tasks.clickBillable();
         await Tasks.enterDueDate();
         await Tasks.saveTask();
-        await browser.pause(1000);
+        
         await LoginCredentials.logout.click();
     });
 }); //dashboardTask_addTask

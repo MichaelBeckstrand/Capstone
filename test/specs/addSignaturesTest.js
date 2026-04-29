@@ -20,7 +20,7 @@ describe('Authentication', () => {
         if (!isChecked) {
             await Engagements.signatureBox.waitForExist({ timeout: 10000 });
             await Engagements.clickSignatureBox({ timeout: 10000 })
-            await Engagements.clickSaveButton({ timeout: 10000 });
+            
 
         }
         await (await Engagements.mtechAddSignatory).waitForClickable({ timeout: 10000 });
@@ -37,18 +37,18 @@ describe('Authentication', () => {
         await Engagements.deletingMtechSignature();
         await (await Engagements.deleteClientSignature).waitForClickable({ timeout: 10000 });
         await Engagements.deletingClientSignature();
-        await browser.pause(5000);
+        
 
         let buttons = await $$('[data-testid="person-control-delete-button"]');
         while (buttons.length > 1) {
             await buttons[1].click();
-            await browser.pause(2000);
+            
             buttons = await $$('[data-testid="person-control-delete-button"]');
         }
         await Engagements.clickSignatureBox();
-        await browser.pause(2000);
+        
         await Engagements.clickSaveButton();
-        await browser.pause(2000);
+        
         await expect(Engagements.signatureBox).not.toBeSelected();
     });
 });

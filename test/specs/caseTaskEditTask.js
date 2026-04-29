@@ -14,15 +14,15 @@ describe('Case Task Tests', () => {
 
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
-        await browser.pause(5000);
+       
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);
         await Tasks.saveTask();
-        await browser.pause(1000);
+        
 
         await Tasks.editAllFieldsUnsavedCase();
         await Tasks.editAllFieldsCase();
-        await browser.pause(2000);
+        
     });
 });

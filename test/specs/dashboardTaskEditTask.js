@@ -9,7 +9,7 @@ describe('Add Task', () => {
             process.env.LOGIN_USERNAME,
             process.env.LOGIN_PASSWORD
         );
-        await expect(LoginCredentials.loggedIn).toBeDisplayed();
+        await $('[role="grid"]').waitForDisplayed({ timeout: 20000 });
 
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.addTaskButton);
@@ -17,11 +17,12 @@ describe('Add Task', () => {
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);
         await Tasks.saveTask();
-        await browser.pause(1000);
+        
 
-        await Tasks.editAllFieldsUnsaved();
-        await Tasks.editAllFields();
-        await browser.pause(2000);
+        await Tasks.editAllFieldsUnsavedDashboard();
+        await Tasks.editAllFieldsDashboard();
+        
+        
         await LoginCredentials.logout.click();
     });
 }); //dashboardTask_editTask

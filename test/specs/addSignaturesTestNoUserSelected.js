@@ -13,19 +13,19 @@ describe('Authentication', () => {
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
         await Engagements.selectThirdCase();
         await Engagements.clickEngagementTab();
-        await browser.pause(4000);
+        
         await Engagements.ensureUnexecuted();
 
         const isChecked = await Engagements.signatureBox.isSelected();
         if (!isChecked) {
             await Engagements.clickSignatureBox();
-            await browser.pause(2000);
+            
         }
-        await browser.pause(4000);
+        
         await Engagements.clickMtechAddSignatory();
-        await browser.pause(2000);
+        
         await expect(Engagements.selectUsersButton).not.toBeClickable();
         await browser.keys('Escape');
-        await browser.pause(1000);
+        
     });
 });

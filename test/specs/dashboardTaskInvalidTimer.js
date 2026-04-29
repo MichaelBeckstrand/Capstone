@@ -17,25 +17,25 @@ describe('Add Task', () => {
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);
         await Tasks.saveTask();
-        await browser.pause(1000);
+        
 
         await Tasks.clickAddTimeButton();
         await Tasks.enterHours(999999999);
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
-        await browser.pause(1000);
+        
 
         await Tasks.clickAddTimeButton();
         await Tasks.enterHours('!@#$%^&*');
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
-        await browser.pause(1000);
+        
 
         await Tasks.clickAddTimeButton();
         await Tasks.enterHours('abcdefgh');
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
-        await browser.pause(1000);
+        
         await LoginCredentials.logout.click();
     });
 }); //dashboardTask_invalidTimer

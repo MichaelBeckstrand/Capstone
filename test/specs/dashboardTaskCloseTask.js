@@ -17,10 +17,10 @@ describe('Add Task', () => {
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);
         await Tasks.saveTask();
-        await browser.pause(1000);
+        
 
         await Tasks.closeTask();
-        await browser.pause(2000);
+        
         await LoginCredentials.logout.click();
     });
 }); //dashboardTask_closeTask

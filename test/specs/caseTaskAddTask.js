@@ -15,35 +15,30 @@ describe('Case Task Tests', () => {
         const taskDescription = `Case task testing ${Date.now()}`;
 
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
-        await browser.pause(5000);
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
         await browser.refresh();
 
         await Tasks.navigateToCasePage('https://app.thecasework.com/case/0a535084-088e-4345-9114-c7dc79cc5cfe');
-        await browser.pause(5000);
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
-        await browser.pause(5000);
+        await Tasks.assignUserDropdown.waitForDisplayed({ timeout: 20000 });
         await Tasks.selectAssignTo();
-        await browser.pause(2000);
+        await Tasks.selectMilestoneDropdown.waitForClickable({ timeout: 20000 });
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
-        await browser.pause(1000);
         await Tasks.saveTask();
-        await browser.pause(1000);
 
         await expect($(`div=${taskDescription}`)).toBeDisplayed();
 
         // Additional task with billable/due date
+        await Tasks.navigateToCasePage('https://app.thecasework.com/case/0a535084-088e-4345-9114-c7dc79cc5cfe');
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
-        await browser.pause(5000);
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
         await Tasks.clickBillable();
         await Tasks.enterDueDate();
         await Tasks.saveTask();
-        await browser.pause(1000);
     });
 });
