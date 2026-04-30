@@ -1,7 +1,6 @@
-import { browser, expect } from '@wdio/globals';
+import { expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Engagements from '../pageobjects/engagementResources.js';
-
 
 describe('Authentication', () => {
     it('should update the engagement title', async () => {
@@ -18,10 +17,5 @@ describe('Authentication', () => {
         const title = `Updated Title ${Date.now()}`;
         await Engagements.enterNewTitle(title);
         await Engagements.saveEngagement();
-
-        await Engagements.enterNewTitle('Unsaved Title');
-        await browser.refresh();
-        await Engagements.clickEngagementTab();
-        await expect(Engagements.engagementDoc).toBeDisplayed();
     });
-}); //engagementTitleTest
+});

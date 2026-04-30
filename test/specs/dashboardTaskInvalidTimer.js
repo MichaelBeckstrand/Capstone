@@ -3,13 +3,13 @@ import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/taskResources.js';
 
 describe('Add Task', () => {
-     it('should input invalid entries into timer add time function', async () => {
+    it('should input invalid entries into timer add time function', async () => {
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
             process.env.LOGIN_PASSWORD
         );
-        await expect(LoginCredentials.loggedIn).toBeDisplayed();
+        await $('[role="grid"]').waitForDisplayed({ timeout: 30000 });
 
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.addTaskButton);
@@ -17,25 +17,21 @@ describe('Add Task', () => {
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);
         await Tasks.saveTask();
-        
 
         await Tasks.clickAddTimeButton();
         await Tasks.enterHours(999999999);
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
-        
 
         await Tasks.clickAddTimeButton();
         await Tasks.enterHours('!@#$%^&*');
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
-        
 
         await Tasks.clickAddTimeButton();
         await Tasks.enterHours('abcdefgh');
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
-        
-        await LoginCredentials.logout.click();
+
     });
-}); //dashboardTask_invalidTimer
+});

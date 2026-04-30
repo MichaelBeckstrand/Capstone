@@ -3,23 +3,19 @@ import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Engagements from '../pageobjects/engagementResources.js';
 
 describe('Authentication', () => {
-    it('should not allow submitting users without selecting one', async () => {
+    it('should not update the engagement title without saving', async () => {
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Engagements.selectThirdCase();
+        await Engagements.selectFourteenthCase();
         await Engagements.clickEngagementTab();
-        await Engagements.ensureUnexecuted();
-
-        const isChecked = await Engagements.signatureBox.isSelected();
-        if (!isChecked) {
-            await Engagements.clickSignatureBox();
-        }
-        await Engagements.clickMtechAddSignatory();
-        await expect(Engagements.selectUsersButton).not.toBeClickable();
-        await browser.keys('Escape');
+        await expect(Engagements.engagementDoc).toBeDisplayed();
+        await Engagements.enterNewTitle('Unsaved Title');
+        await browser.refresh();
+        await Engagements.clickEngagementTab();
+        await expect(Engagements.engagementDoc).toBeDisplayed();
     });
 });

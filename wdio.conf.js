@@ -22,38 +22,38 @@ export const config = {
     //
     specs: [
         './test/specs/securityTest.js',
-
         './test/specs/caseTaskRequiredFields.js',
+        './test/specs/dashboardTaskRequiredFields.js',
         './test/specs/applyTemplateTest.js',
+        './test/specs/dashboardTaskAddTaskNoSave.js',
+        './test/specs/caseTaskAddTaskNoSave.js',
+        './test/specs/dashboardTaskAddTaskBillable.js',
         './test/specs/caseTaskAddTask.js',
+        './test/specs/dashboardTaskAddTaskBillable.js',
+        './test/specs/caseTaskAddTaskBillable.js',
+        './test/specs/dashboardTaskEditTaskNoSave.js',
         './test/specs/engagementTitleTest.js',
+        './test/specs/dashboardTaskAddTask.js',
+        './test/specs/engagementTitleTestNoSave.js',
+        './test/specs/dashboardTaskEditTask.js',
+        './test/specs/caseTaskEditTaskNoSave.js',
+        './test/specs/dashboardTaskAddNotes.js',
         './test/specs/caseTaskEditTask.js',
+        './test/specs/dashboardTaskInvalidTimer.js',
         './test/specs/addSignaturesTest.js',
+        './test/specs/dashboardTaskOverdueTask.js',
         './test/specs/caseTaskAddNotes.js',
         './test/specs/addSignaturesTestNoContactSelected.js',
         './test/specs/caseTaskInvalidTimer.js',
+        './test/specs/dashboardTaskCompleteTask.js',
         './test/specs/addSignaturesTestNoUserSelected.js',
         './test/specs/caseTaskOverdueTask.js',
+        './test/specs/dashboardTaskCloseTask.js',
         './test/specs/caseTaskCompleteTask.js',
         './test/specs/caseTaskCloseTask.js',
-
-        // Grouped so they run sequentially in one worker — prevents concurrent access to the shared dashboard
-        [
-            './test/specs/dashboardTaskRequiredFields.js',
-            './test/specs/dashboardTaskAddTask.js',
-            './test/specs/dashboardTaskEditTask.js',
-            './test/specs/dashboardTaskAddNotes.js',
-            './test/specs/dashboardTaskInvalidTimer.js',
-            './test/specs/dashboardTaskOverdueTask.js',
-            './test/specs/dashboardTaskCompleteTask.js',
-            './test/specs/dashboardTaskCloseTask.js',
-        ],
+        
+            
     ],
-    exclude: [
-        './test/specs/Dashboard.js',
-        './test/specs/Case.js',
-    ],
-
     //
     // ============
     // Capabilities
@@ -70,7 +70,7 @@ export const config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 3,
+    maxInstances: 1,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -136,7 +136,7 @@ export const config = {
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
     framework: 'mocha',
-    
+
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,

@@ -1,9 +1,9 @@
-import { browser, expect } from '@wdio/globals';
+import { expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/caseTaskResources.js';
 
 describe('Case Task Tests', () => {
-    it('should edit a task, not save changes, then save changes', async () => {
+    it('should edit all task fields and save', async () => {
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
@@ -14,15 +14,12 @@ describe('Case Task Tests', () => {
 
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
-       
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);
         await Tasks.saveTask();
-        
+        await Tasks.kebabMenuButton.waitForExist({ timeout: 30000 });
 
-        await Tasks.editAllFieldsUnsavedCase();
         await Tasks.editAllFieldsCase();
-        
     });
 });

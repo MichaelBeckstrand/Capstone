@@ -1,9 +1,9 @@
-import { browser, expect } from '@wdio/globals';
+import { expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/taskResources.js';
 
 describe('Add Task', () => {
-    it('should add notes to a task', async () => {
+    it('should add a task with billable and due date', async () => {
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
@@ -11,15 +11,15 @@ describe('Add Task', () => {
         );
         await $('[role="grid"]').waitForDisplayed({ timeout: 30000 });
 
-        const setupTask = `Setup task ${Date.now()}`;
+        const taskDescription = `Task description test ${Date.now()}`;
+
         await Tasks.whenClickable(Tasks.addTaskButton);
         await Tasks.selectCase();
         await Tasks.selectMilestone();
-        await Tasks.enterTaskText(setupTask);
+        await Tasks.enterTaskText(taskDescription);
+        await Tasks.clickBillable();
+        await Tasks.enterDueDate();
         await Tasks.saveTask();
 
-        await Tasks.addingNotes();
-
-    
     });
 });

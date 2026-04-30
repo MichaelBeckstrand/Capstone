@@ -12,39 +12,25 @@ describe('Case Task Tests', () => {
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
         await Tasks.navigateToCasePage('https://app.thecasework.com/case/28398c10-f24c-4229-8246-d64eb2b1be58');
 
-        // No fields filled
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
-        
         await expect(Tasks.saveTaskButton).not.toBeClickable();
         await browser.keys('Escape');
-        
 
-        // Only assign a user
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
-        
         await Tasks.selectAssignTo();
         await expect(Tasks.saveTaskButton).not.toBeClickable();
         await browser.keys('Escape');
-        
 
-        // Only select a milestone
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
-        
         await Tasks.selectMilestone();
         await expect(Tasks.saveTaskButton).not.toBeClickable();
         await browser.keys('Escape');
-        
 
-        // Re-navigate to clear pre-filled milestone state left by previous step
         await Tasks.navigateToCasePage('https://app.thecasework.com/case/28398c10-f24c-4229-8246-d64eb2b1be58');
 
-        // Only enter text
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
-        
         await Tasks.enterTaskText(`Incomplete task ${Date.now()}`);
-        
         await expect(Tasks.saveTaskButton).not.toBeClickable();
         await browser.keys('Escape');
-        
     });
 });

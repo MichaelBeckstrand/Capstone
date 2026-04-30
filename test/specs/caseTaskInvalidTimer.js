@@ -3,7 +3,7 @@ import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/caseTaskResources.js';
 
 describe('Case Task Tests', () => {
-     it('should input invalid entries into timer add time function', async () => {
+    it('should input invalid entries into timer add time function', async () => {
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
@@ -14,29 +14,24 @@ describe('Case Task Tests', () => {
 
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
-        
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);
         await Tasks.saveTask();
-        
 
         await Tasks.clickCaseAddTimeButton();
         await Tasks.enterHours(999999999);
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
-        
 
         await Tasks.clickCaseAddTimeButton();
         await Tasks.enterHours('!@#$%^&*');
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
-        
 
         await Tasks.clickCaseAddTimeButton();
         await Tasks.enterHours('abcdefgh');
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
-        
     });
 });

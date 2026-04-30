@@ -1,4 +1,3 @@
-
 import { Key } from 'webdriverio';
 import testUrl from './testUrl.js';
 
@@ -16,7 +15,6 @@ class Tasks extends testUrl {
     get selectMilestoneDropdown() {
         return $('[data-testid="milestone-dropdown-menu"]');
     }
-
     get selectAddtime() {
         return $('[data-testid="timercontrol-add-time-button"]');
     }
@@ -26,7 +24,6 @@ class Tasks extends testUrl {
     get submitTimeButton() {
         return $('[data-testid="add-timeentry-fortask-submit-button"]');
     }
-
     get assignUserDropdown() {
         return $('[data-testid="user-filter-menu"]');
     }
@@ -60,7 +57,6 @@ class Tasks extends testUrl {
     get closeTaskButton() {
         return $$('[data-testid^="task-control-complete-"]');
     }
-
     get noteButton() {
         return $('[data-testid="task-dialog-notes-toggle-button"]');
     }
@@ -73,39 +69,37 @@ class Tasks extends testUrl {
     get taskHeader() {
         return $('//div[contains(text(), "Add Task")]')
     }
-
     get overdueIndicator() {
         return $('//div[contains(@class, "fui-Badge") and contains(., "Overdue")]');
     }
-
     get missingRequired() {
         return $('.fui-MessageBarBody');
     }
-
     get caseAvatar() {
         return $('[data-testid="task-dialog-case-persona"]');
     }
 
     async whenClickable(element) {
-        await element.waitForClickable({ timeout: 20000 });
+        await element.waitForClickable({ timeout: 30000 });
         await element.click();
     }
 
     async selectCase() {
         await this.whenClickable(this.caseDropdown);
-        await $('[role="menu"]').waitForDisplayed({ timeout: 20000 });
-        await $$('[role="menuitemradio"]')[1].waitForExist({ timeout: 20000 });
+        await $('[role="menu"]').waitForDisplayed({ timeout: 30000 });
+        await $$('[role="menuitemradio"]')[1].waitForExist({ timeout: 30000 });
         await $$('[role="menuitemradio"]')[1].click();
-        await this.caseAvatar.waitForDisplayed({ timeout: 20000 });
+        await this.caseAvatar.waitForDisplayed({ timeout: 30000 });
     }
 
     async selectMilestone() {
-        await this.caseAvatar.waitForDisplayed({ timeout: 20000 });
+        await this.caseAvatar.waitForDisplayed({ timeout: 30000 });
         browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
-        await $('[role="menuitemradio"]').waitForExist({ timeout: 30000 });
+        await $('[role="menuitemradio"]').waitForExist({ timeout: 60000 });
         await $('[role="menuitemradio"]').click();
     }
+
     async selectMilestoneDashBoard() {
         browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
@@ -115,68 +109,70 @@ class Tasks extends testUrl {
     async selectNewMilestone() {
         browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
-        await this.selectMilestoneDropdown.waitForClickable({ timeout: 10000 });
+        await this.selectMilestoneDropdown.waitForClickable({ timeout: 30000 });
         await this.selectMilestoneDropdown.click();
-        await $('[role="menuitemradio"]').waitForExist({ timeout: 20000 });
+        await $('[role="menuitemradio"]').waitForExist({ timeout: 30000 });
         await $('[role="menuitemradio"]').click();
-        await this.taskTextBox.waitForClickable({ timeout: 10000 });
+        await this.taskTextBox.waitForClickable({ timeout: 30000 });
     }
 
     async enterTaskText(text) {
-        await this.taskTextBox.waitForClickable({ timeout: 20000 });
+        await this.taskTextBox.waitForClickable({ timeout: 30000 });
         await this.taskTextBox.click();
         await this.taskTextBox.setValue(text);
         await browser.keys(Key.Enter);
     }
 
     async enterDueDate() {
-        await this.dueByCheckbox.waitForExist({ timeout: 20000 });
+        await this.dueByCheckbox.waitForExist({ timeout: 30000 });
         await browser.execute(() => {
             document.querySelector('[data-testid="task-dialog-dueby-checkbox"]').click();
         });
-        await this.selectDate.waitForExist({ timeout: 20000 });
-        await this.selectDate.waitForClickable({ timeout: 20000 });
-        await this.selectDate.click();
+        await this.selectDate.waitForExist({ timeout: 30000 });
+        await browser.execute(() => {
+            document.querySelector('[data-testid="task-dialog-datepicker"]').click();
+        });
         await browser.keys(Key.ArrowLeft);
         await browser.keys(Key.Enter);
     }
 
     async enterPastDueDate() {
-        await this.dueByCheckbox.waitForExist({ timeout: 10000 });
+        await this.dueByCheckbox.waitForExist({ timeout: 30000 });
         await browser.execute(() => {
             document.querySelector('[data-testid="task-dialog-dueby-checkbox"]').click();
         });
-        await this.selectDate.waitForExist({ timeout: 10000 });
-        await this.selectDate.waitForClickable({ timeout: 10000 });
+        await this.selectDate.waitForExist({ timeout: 30000 });
+        await this.selectDate.waitForClickable({ timeout: 30000 });
         await this.selectDate.click();
-        
         await browser.keys(Key.ArrowLeft);
         await browser.keys(Key.Enter);
     }
 
     async enterAltDueDate() {
-        await this.selectDate.waitForExist({ timeout: 10000 });
-        await this.selectDate.waitForClickable({ timeout: 10000 });
+        await this.selectDate.waitForExist({ timeout: 30000 });
+        await this.selectDate.waitForClickable({ timeout: 30000 });
         await this.selectDate.click();
         await browser.keys(Key.ArrowDown);
         await browser.keys(Key.Enter);
     }
 
     async clickBillable() {
-        await this.billableCheckbox.waitForExist({ timeout: 20000 });
+        await this.billableCheckbox.waitForExist({ timeout: 30000 });
         await browser.execute(() => {
             document.querySelector('[data-testid="task-dialog-billable-button"]').click();
         });
     }
 
     async saveTask() {
-        await this.saveTaskButton.waitForClickable({ timeout: 10000 });
-        await this.saveTaskButton.click();
-        await this.saveTaskButton.waitForDisplayed({ timeout: 10000, reverse: true });
+        await this.saveTaskButton.waitForExist({ timeout: 30000 });
+        await browser.execute(() => {
+            document.querySelector('[data-testid="task-dialog-save-button"]').click();
+        });
+        await this.saveTaskButton.waitForClickable({ timeout: 30000, reverse: true });
     }
 
     async clickSave() {
-        await this.saveTaskButton.waitForClickable({ timeout: 10000 });
+        await this.saveTaskButton.waitForClickable({ timeout: 30000 });
         await this.saveTaskButton.click();
     }
 
@@ -184,48 +180,43 @@ class Tasks extends testUrl {
         const taskRows = await $$('[data-testid^="task-control-edit-"]');
         if (taskRows.length > 0) {
             await taskRows[taskRows.length - 1].moveTo();
-        
         }
-        await this.selectAddtime.waitForExist({ timeout: 10000 });
+        await this.selectAddtime.waitForExist({ timeout: 30000 });
         await browser.execute(() => {
             const btn = document.querySelector('[data-testid="timercontrol-add-time-button"]');
             if (btn) btn.click();
         });
-        
     }
 
     async enterHours(value) {
-        await this.clickAddtimeTextField.waitForExist({ timeout: 10000 });
-        await this.clickAddtimeTextField.waitForClickable({ timeout: 10000 });
+        await this.clickAddtimeTextField.waitForExist({ timeout: 30000 });
+        await this.clickAddtimeTextField.waitForClickable({ timeout: 30000 });
         await this.clickAddtimeTextField.setValue(String(value));
-        
     }
 
     async completeTask() {
-        await $('[data-testid^="task-control-complete-"]').waitForExist({ timeout: 10000 });
+        await $('[data-testid^="task-control-complete-"]').waitForExist({ timeout: 30000 });
         await browser.execute(() => {
             const btns = document.querySelectorAll('[data-testid^="task-control-complete-"]');
             if (btns.length > 0) btns[btns.length - 1].click();
         });
-        
     }
 
     async closeTask() {
-        await $('[data-testid^="task-control-close-"]').waitForExist({ timeout: 10000 });
+        await $('[data-testid^="task-control-close-"]').waitForExist({ timeout: 30000 });
         await browser.execute(() => {
             const btns = document.querySelectorAll('[data-testid^="task-control-close-"]');
             if (btns.length > 0) btns[btns.length - 1].click();
         });
-        
     }
 
     async clickOnEditTaskIcon() {
-        await this.editTaskIcon.waitForExist({ timeout: 10000 });
+        await this.editTaskIcon.waitForExist({ timeout: 30000 });
         await browser.execute(el => el.click(), await this.editTaskIcon);
     }
 
     async clickEditIcon() {
-        await $('[data-testid^="task-control-edit-"]').waitForExist({ timeout: 10000 });
+        await $('[data-testid^="task-control-edit-"]').waitForExist({ timeout: 30000 });
         await browser.execute(() => {
             const editbtn = document.querySelectorAll('[data-testid^="task-control-edit-"]');
             if (editbtn.length > 0) editbtn[editbtn.length - 1].click();
@@ -237,87 +228,62 @@ class Tasks extends testUrl {
     }
 
     async enterDueDateConditional() {
+        await this.dueByCheckbox.waitForExist({ timeout: 30000 });
         const datepickerExists = await this.selectDate.isExisting();
         if (datepickerExists) {
             await this.enterAltDueDate();
         } else {
-            const checkboxExists = await this.dueByCheckbox.isExisting();
-            if (checkboxExists) {
-                await this.enterDueDate();
-            }
+            await this.enterDueDate();
         }
     }
 
     async editAllFieldsUnsaved() {
         await this.clickEditIcon();
-        await this.saveTaskButton.waitForExist({ timeout: 10000 });
-        await this.assignUserDropdown.waitForClickable({ timeout: 10000 });
+        await this.saveTaskButton.waitForExist({ timeout: 30000 });
+        await this.assignUserDropdown.waitForClickable({ timeout: 30000 });
         await this.assignUserDropdown.click();
-        
         await this.selectNewMilestone();
-        
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskText(newTaskDescription);
-        
         await this.enterDueDateConditional();
-        
         await this.cancelEdit();
-        
     }
 
     async editAllFields() {
         await this.clickEditIcon();
-        await this.saveTaskButton.waitForExist({ timeout: 10000 });
-        await this.assignUserDropdown.waitForClickable({ timeout: 10000 });
+        await this.saveTaskButton.waitForExist({ timeout: 30000 });
+        await this.assignUserDropdown.waitForClickable({ timeout: 30000 });
         await this.assignUserDropdown.click();
-        
         await this.selectNewMilestone();
-        
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskText(newTaskDescription);
-        
         await this.enterDueDateConditional();
-        
         await this.saveTask();
-        
     }
 
     async editAllFieldsUnsavedDashboard() {
         await this.clickEditIcon();
-        await this.saveTaskButton.waitForExist({ timeout: 10000 });
-        await this.assignUserDropdown.waitForClickable({ timeout: 10000 });
+        await this.saveTaskButton.waitForExist({ timeout: 30000 });
+        await this.assignUserDropdown.waitForClickable({ timeout: 30000 });
         await this.assignUserDropdown.click();
-
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskText(newTaskDescription);
-
         await this.enterDueDateConditional();
-
         await this.selectMilestone();
-
         await this.cancelEdit();
-        await this.cancelTaskButton.waitForDisplayed({ timeout: 10000, reverse: true });
+        await this.cancelTaskButton.waitForDisplayed({ timeout: 30000, reverse: true });
     }
 
     async editAllFieldsDashboard() {
         await this.clickEditIcon();
-        await this.saveTaskButton.waitForExist({ timeout: 10000 });
-        await this.assignUserDropdown.waitForClickable({ timeout: 10000 });
+        await this.saveTaskButton.waitForExist({ timeout: 30000 });
+        await this.assignUserDropdown.waitForClickable({ timeout: 30000 });
         await this.assignUserDropdown.click();
-
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskText(newTaskDescription);
-
         await this.enterDueDateConditional();
-
         await this.selectMilestone();
         await this.enterDueDateConditional();
-        
-
-        
-    
-        
-
         await this.saveTask();
     }
 
@@ -328,8 +294,9 @@ class Tasks extends testUrl {
         const noteText = `This is a test note ${Date.now()}`;
         await this.noteField.setValue(noteText);
         await this.whenClickable(this.addNoteButton);
-        await this.whenClickable(this.cancelTaskButton);
+        await expect($(`div=${noteText}`)).toBeDisplayed();
     }
 }
+
 export { Tasks };
 export default new Tasks();

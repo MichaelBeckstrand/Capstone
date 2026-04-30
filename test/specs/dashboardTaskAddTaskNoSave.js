@@ -3,7 +3,7 @@ import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/taskResources.js';
 
 describe('Add Task', () => {
-    it('should add notes to a task', async () => {
+    it('should add a task without saving', async () => {
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
@@ -11,15 +11,13 @@ describe('Add Task', () => {
         );
         await $('[role="grid"]').waitForDisplayed({ timeout: 30000 });
 
-        const setupTask = `Setup task ${Date.now()}`;
+        const taskDescription = `Task description test ${Date.now()}`;
+
         await Tasks.whenClickable(Tasks.addTaskButton);
         await Tasks.selectCase();
         await Tasks.selectMilestone();
-        await Tasks.enterTaskText(setupTask);
-        await Tasks.saveTask();
+        await Tasks.enterTaskText(taskDescription);
+        await browser.refresh();
 
-        await Tasks.addingNotes();
-
-    
     });
 });

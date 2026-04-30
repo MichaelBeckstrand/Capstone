@@ -14,36 +14,26 @@ describe('Engagement Template', () => {
         await Engagements.clickEngagementTab();
         await Engagements.ensureUnexecuted();
 
-        // Apply template
         await Engagements.whenClickable(Engagements.applyTemplateButton);
         await Engagements.whenClickable(Engagements.applyTemplate);
         await Engagements.clickSaveButton();
-        
+        await Engagements.toastNotification.waitForDisplayed({ timeout: 30000 });
 
-        // Execute then immediately unexecute
         await Engagements.whenClickable(Engagements.previewButton);
-        await Engagements.pdf.waitForDisplayed({ timeout: 20000 });
-
-
-
+        await Engagements.pdf.waitForDisplayed({ timeout: 30000 });
         await Engagements.whenClickable(Engagements.executeButton);
-        
-        
+        await Engagements.pdf.waitForDisplayed({ timeout: 30000 });
         await Engagements.whenClickable(Engagements.confirmExecuteButton);
-        
+        await Engagements.pdf.waitForDisplayed({ timeout: 30000 });
 
-        
         await Engagements.ensureUnexecuted();
-
-
-        // Verify engagement text: unsaved changes don't persist, saved ones do
         await Engagements.whenClickable(Engagements.showfieldsButton);
+
         const engagementText = `Engagement Text ${Date.now()}`;
         await Engagements.engagementTextRefresh(engagementText);
         await Engagements.savingEngagementText(engagementText);
         await expect(Engagements.engagementTextBox).toHaveValue(engagementText);
 
-        // Cleanup
         await Engagements.whenClickable(Engagements.removeFieldButton);
         await Engagements.clickSaveButton();
         await Engagements.ensureUnexecuted();

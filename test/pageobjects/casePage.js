@@ -1,4 +1,3 @@
-// pageobjects/case.page.js
 import Page from './page.js';
 
 class CasePage extends Page {
