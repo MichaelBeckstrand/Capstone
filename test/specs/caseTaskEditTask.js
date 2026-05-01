@@ -21,5 +21,6 @@ describe('Case Task Tests', () => {
         await Tasks.kebabMenuButton.waitForExist({ timeout: 30000 });
 
         await Tasks.editAllFieldsCase();
+        await expect(Tasks.saveTaskButton).not.toBeClickable();
     });
 });

@@ -23,6 +23,7 @@ describe('Case Task Tests', () => {
         await Tasks.clickBillable();
         await Tasks.enterDueDate();
         await Tasks.saveTask();
+        await expect(Tasks.saveTaskButton).not.toBeDisplayed();
 
         
     });

@@ -3,7 +3,7 @@ import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/taskResources.js';
 
 describe('Add Task', () => {
-    it('should complete the bottom task', async () => {
+    it('should complete a task', async () => {
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
@@ -19,6 +19,7 @@ describe('Add Task', () => {
         await Tasks.saveTask();
 
         await Tasks.completeTask();
+        await expect(Tasks.completeTaskButton).not.toBeDisplayed();
 
     });
 });

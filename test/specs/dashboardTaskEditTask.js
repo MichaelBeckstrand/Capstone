@@ -19,6 +19,7 @@ describe('Add Task', () => {
         await $('[data-testid^="task-control-edit-"]').waitForExist({ timeout: 30000 });
 
         await Tasks.editAllFieldsDashboard();
+        await expect(Tasks.saveTaskButton).not.toBeClickable();
 
     });
 });

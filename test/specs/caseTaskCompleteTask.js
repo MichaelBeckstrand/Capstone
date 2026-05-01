@@ -1,4 +1,4 @@
-import { browser, expect } from '@wdio/globals';
+import { expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/caseTaskResources.js';
 
@@ -20,5 +20,6 @@ describe('Case Task Tests', () => {
         await Tasks.saveTask();
 
         await Tasks.completeTask();
+        await expect(Tasks.completeTaskButton).not.toBeDisplayed();
     });
 });

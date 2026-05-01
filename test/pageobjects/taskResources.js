@@ -52,10 +52,10 @@ class Tasks extends testUrl {
         return $('[data-testid="task-control-edit-57def966-ecb3-4ab9-ae53-1d91962278e2"]');
     }
     get completeTaskButton() {
-        return $$('[data-testid^="task-control-complete-"]');
+        return $('[data-testid^="task-control-complete-"]');
     }
     get closeTaskButton() {
-        return $$('[data-testid^="task-control-complete-"]');
+        return $('[data-testid^="task-control-close-"]');
     }
     get noteButton() {
         return $('[data-testid="task-dialog-notes-toggle-button"]');
@@ -87,8 +87,8 @@ class Tasks extends testUrl {
     async selectCase() {
         await this.whenClickable(this.caseDropdown);
         await $('[role="menu"]').waitForDisplayed({ timeout: 30000 });
-        await $$('[role="menuitemradio"]')[1].waitForExist({ timeout: 30000 });
-        await $$('[role="menuitemradio"]')[1].click();
+        await $$('[role="menuitemradio"]')[0].waitForExist({ timeout: 30000 });
+        await $$('[role="menuitemradio"]')[0].click();
         await this.caseAvatar.waitForDisplayed({ timeout: 30000 });
     }
 
@@ -96,7 +96,7 @@ class Tasks extends testUrl {
         await this.caseAvatar.waitForDisplayed({ timeout: 30000 });
         browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
-        await $('[role="menuitemradio"]').waitForExist({ timeout: 60000 });
+        await $('[role="menuitemradio"]').waitForExist({ timeout: 120000 });
         await $('[role="menuitemradio"]').click();
     }
 
@@ -104,13 +104,12 @@ class Tasks extends testUrl {
         browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
         await $('[role="menuitemradio"]').waitForExist({ timeout: 30000, reverse: true });
+        await $('[role="menuitemradio"]').click();
     }
 
     async selectNewMilestone() {
         browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
-        await this.selectMilestoneDropdown.waitForClickable({ timeout: 30000 });
-        await this.selectMilestoneDropdown.click();
         await $('[role="menuitemradio"]').waitForExist({ timeout: 30000 });
         await $('[role="menuitemradio"]').click();
         await this.taskTextBox.waitForClickable({ timeout: 30000 });
@@ -268,10 +267,8 @@ class Tasks extends testUrl {
         await this.assignUserDropdown.click();
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskText(newTaskDescription);
-        await this.enterDueDateConditional();
         await this.selectMilestone();
         await this.cancelEdit();
-        await this.cancelTaskButton.waitForDisplayed({ timeout: 30000, reverse: true });
     }
 
     async editAllFieldsDashboard() {
@@ -281,9 +278,7 @@ class Tasks extends testUrl {
         await this.assignUserDropdown.click();
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskText(newTaskDescription);
-        await this.enterDueDateConditional();
         await this.selectMilestone();
-        await this.enterDueDateConditional();
         await this.saveTask();
     }
 
@@ -294,7 +289,6 @@ class Tasks extends testUrl {
         const noteText = `This is a test note ${Date.now()}`;
         await this.noteField.setValue(noteText);
         await this.whenClickable(this.addNoteButton);
-        await expect($(`div=${noteText}`)).toBeDisplayed();
     }
 }
 

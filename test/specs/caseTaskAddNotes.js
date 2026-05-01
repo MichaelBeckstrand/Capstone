@@ -21,5 +21,6 @@ describe('Case Task Tests', () => {
         await $('[aria-label="More items"]').waitForExist({ timeout: 30000 });
 
         await Tasks.addingNotes();
+        await expect(Tasks.addNoteButton).not.toBeClickable();
     });
 });

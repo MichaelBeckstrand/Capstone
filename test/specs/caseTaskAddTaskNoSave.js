@@ -21,6 +21,7 @@ describe('Case Task Tests', () => {
         await Tasks.selectMilestone();   //currently having an issue with milestone dropdown loading  
         await Tasks.enterTaskText(taskDescription);
         await browser.refresh();
+        await expect($(`div=${taskDescription}`)).not.toBeDisplayed();
 
         
     });

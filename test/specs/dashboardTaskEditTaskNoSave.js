@@ -19,7 +19,8 @@ describe('Add Task', () => {
         await $('[data-testid^="task-control-edit-"]').waitForExist({ timeout: 30000 });
 
         await Tasks.editAllFieldsUnsavedDashboard();
+        await expect(Tasks.cancelTaskButton).not.toBeDisplayed();
 
-        
+
     });
 });

@@ -18,6 +18,7 @@ describe('Add Task', () => {
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
         await browser.refresh();
+        await expect($(`div=${taskDescription}`)).not.toBeDisplayed();
 
     });
 });

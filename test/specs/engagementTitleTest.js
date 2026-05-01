@@ -17,5 +17,6 @@ describe('Authentication', () => {
         const title = `Updated Title ${Date.now()}`;
         await Engagements.enterNewTitle(title);
         await Engagements.saveEngagement();
+        await expect(Engagements.engagementSaveButton).not.toBeDisplayed()
     });
 });

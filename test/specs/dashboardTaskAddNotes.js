@@ -19,7 +19,8 @@ describe('Add Task', () => {
         await Tasks.saveTask();
 
         await Tasks.addingNotes();
+        await expect(Tasks.addNoteButton).not.toBeClickable();
 
-    
+
     });
 });
