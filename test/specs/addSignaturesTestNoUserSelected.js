@@ -1,6 +1,7 @@
 import { browser, expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Engagements from '../pageobjects/engagementResources.js';
+import Tasks from '../pageobjects/taskResources.js';
 
 describe('Authentication', () => {
     it('should not allow submitting users without selecting one', async () => {
@@ -10,7 +11,7 @@ describe('Authentication', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Engagements.selectThirdCase();
+        await Tasks.selectThirdCase();
         await Engagements.clickEngagementTab();
         await Engagements.ensureUnexecuted();
 

@@ -1,6 +1,7 @@
 import { expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Engagements from '../pageobjects/engagementResources.js';
+import Tasks from '../pageobjects/taskResources.js';
 
 describe('Authentication', () => {
     it('should update the engagement title', async () => {
@@ -10,7 +11,7 @@ describe('Authentication', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Engagements.selectThirteenthCase();
+        await Tasks.selectThirteenthCase();
         await Engagements.clickEngagementTab();
         await expect(Engagements.engagementDoc).toBeDisplayed();
         await Engagements.ensureUnexecuted();

@@ -16,8 +16,8 @@ describe('Add Task', () => {
         await Tasks.addTaskButton.waitForClickable({ timeout: 30000 });
         await Tasks.whenClickable(Tasks.addTaskButton);
         await Tasks.selectCase();
-        await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
+        await Tasks.selectMilestone();
         await Tasks.saveTask();
 
         await expect($(`div=${taskDescription}`)).toBeDisplayed();

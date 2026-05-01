@@ -14,8 +14,8 @@ describe('Add Task', () => {
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.addTaskButton);
         await Tasks.selectCase();
-        await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);
+        await Tasks.selectMilestone();
         await Tasks.saveTask();
 
         await Tasks.completeTask();

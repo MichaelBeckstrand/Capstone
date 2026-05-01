@@ -15,8 +15,8 @@ describe('Add Task', () => {
 
         await Tasks.whenClickable(Tasks.addTaskButton);
         await Tasks.selectCase();
-        await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
+        await Tasks.selectMilestone();
         await browser.refresh();
         await expect($(`div=${taskDescription}`)).not.toBeDisplayed();
 

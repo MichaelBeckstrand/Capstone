@@ -1,6 +1,7 @@
 import { browser, expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Engagements from '../pageobjects/engagementResources.js';
+import Tasks from '../pageobjects/taskResources.js';
 
 describe('Engagement Template', () => {
     it('should apply a template, execute and unexecute, and persist engagement text', async () => {
@@ -10,7 +11,7 @@ describe('Engagement Template', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Engagements.selectFourthCase();
+        await Tasks.selectFourthCase();
         await Engagements.clickEngagementTab();
         await Engagements.ensureUnexecuted();
 

@@ -15,10 +15,10 @@ describe('Add Task', () => {
 
         await Tasks.whenClickable(Tasks.addTaskButton);
         await Tasks.selectCase();
-        await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
         await Tasks.clickBillable();
         await Tasks.enterDueDate();
+        await Tasks.selectMilestone();
         await Tasks.saveTask();
         await expect(Tasks.saveTaskButton).not.toBeDisplayed();
 
