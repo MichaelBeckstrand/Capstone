@@ -19,6 +19,8 @@ describe('Add Task', () => {
         await Tasks.enterTaskText(taskDescription);
         await Tasks.selectMilestone();
         await Tasks.saveTask();
+        await Tasks.closeTask();
+        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
 
         await expect($(`div=${taskDescription}`)).toBeDisplayed();
 

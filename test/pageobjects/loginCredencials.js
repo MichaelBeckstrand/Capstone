@@ -1,6 +1,4 @@
-import testUrl from './testUrl.js';
-
-class LoginCredentials extends testUrl {
+class LoginCredentials {
     get typeUsername() {
         return $('input[type="text"]');
     }
@@ -28,7 +26,7 @@ class LoginCredentials extends testUrl {
     }
 
     async url() {
-        return super.url('https://app.thecasework.com/');
+        return browser.url('https://app.thecasework.com/');
     }
 }
 

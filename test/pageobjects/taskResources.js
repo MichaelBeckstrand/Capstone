@@ -1,7 +1,6 @@
 import { Key } from 'webdriverio';
-import testUrl from './testUrl.js';
 
-class Tasks extends testUrl {
+class Tasks {
 
     get addTaskButton() {
         return $('[data-testid="link-button-Add Task"]');
@@ -86,38 +85,44 @@ class Tasks extends testUrl {
 
     async selectCase() {
         await this.whenClickable(this.caseDropdown);
-        await $('[role="menu"]').waitForDisplayed({ timeout: 30000 });
-        await $$('[role="menuitemradio"]')[0].waitForExist({ timeout: 30000 });
-        await $$('[role="menuitemradio"]')[0].click();
+        await $('[role="listbox"]').waitForDisplayed({ timeout: 30000 });
+        await $('[role="option"]').waitForExist({ timeout: 30000 });
+        await browser.execute(() => document.querySelector('[role="option"]').click());
         await this.caseAvatar.waitForDisplayed({ timeout: 30000 });
     }
 
     async selectMilestone() {
         await this.caseAvatar.waitForDisplayed({ timeout: 30000 });
-        browser.execute(() => window.focus());
+        await browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
-        await $$('[role="menuitemradio"]')[0].waitForExist({ timeout: 120000 });
-        await $$('[role="menuitemradio"]')[0].click();
+        await $('[role="listbox"]').waitForDisplayed({ timeout: 120000 });
+        await $('[role="option"]').waitForExist({ timeout: 120000 });
+        await browser.execute(() => document.querySelector('[role="option"]').click());
     }
 
     async selectMilestoneDashBoard() {
-        browser.execute(() => window.focus());
+        await browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
-        await $('[role="menuitemradio"]').waitForExist({ timeout: 30000, reverse: true });
-        await $('[role="menuitemradio"]').click();
+        await $('[role="option"]').waitForExist({ timeout: 30000, reverse: true });
     }
 
     async selectNewMilestone() {
-        browser.execute(() => window.focus());
+        await browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
-        await $('[role="menuitemradio"]').waitForExist({ timeout: 30000 });
-        await $('[role="menuitemradio"]').click();
+        await $('[role="listbox"]').waitForDisplayed({ timeout: 30000 });
+        await $('[role="option"]').waitForExist({ timeout: 30000 });
+        await $('[role="option"]').click();
         await this.taskTextBox.waitForClickable({ timeout: 30000 });
     }
 
     async enterTaskText(text) {
-        await this.taskTextBox.waitForClickable({ timeout: 30000 });
-        await this.taskTextBox.click();
+        await this.whenClickable(this.taskTextBox);
+        await this.taskTextBox.setValue(text);
+        await browser.keys(Key.Enter);
+    }
+    async enterTaskTextEdit(text) {
+        await this.whenClickable(this.taskTextBox);
+        await browser.keys([Key.Command, 'a'])
         await this.taskTextBox.setValue(text);
         await browser.keys(Key.Enter);
     }
@@ -127,10 +132,7 @@ class Tasks extends testUrl {
         await browser.execute(() => {
             document.querySelector('[data-testid="task-dialog-dueby-checkbox"]').click();
         });
-        await this.selectDate.waitForExist({ timeout: 30000 });
-        await browser.execute(() => {
-            document.querySelector('[data-testid="task-dialog-datepicker"]').click();
-        });
+        await this.whenClickable(this.selectDate);
         await browser.keys(Key.ArrowLeft);
         await browser.keys(Key.Enter);
     }
@@ -141,16 +143,14 @@ class Tasks extends testUrl {
             document.querySelector('[data-testid="task-dialog-dueby-checkbox"]').click();
         });
         await this.selectDate.waitForExist({ timeout: 30000 });
-        await this.selectDate.waitForClickable({ timeout: 30000 });
-        await this.selectDate.click();
+        await this.whenClickable(this.selectDate);
         await browser.keys(Key.ArrowLeft);
         await browser.keys(Key.Enter);
     }
 
     async enterAltDueDate() {
         await this.selectDate.waitForExist({ timeout: 30000 });
-        await this.selectDate.waitForClickable({ timeout: 30000 });
-        await this.selectDate.click();
+        await this.whenClickable(this.selectDate);
         await browser.keys(Key.ArrowDown);
         await browser.keys(Key.Enter);
     }
@@ -171,8 +171,7 @@ class Tasks extends testUrl {
     }
 
     async clickSave() {
-        await this.saveTaskButton.waitForClickable({ timeout: 30000 });
-        await this.saveTaskButton.click();
+        await this.whenClickable(this.saveTaskButton);
     }
 
     async clickAddTimeButton() {
@@ -188,8 +187,7 @@ class Tasks extends testUrl {
     }
 
     async enterHours(value) {
-        await this.clickAddtimeTextField.waitForExist({ timeout: 30000 });
-        await this.clickAddtimeTextField.waitForClickable({ timeout: 30000 });
+        await this.clickAddtimeTextField.waitForDisplayed({ timeout: 30000 });
         await this.clickAddtimeTextField.setValue(String(value));
     }
 
@@ -239,8 +237,7 @@ class Tasks extends testUrl {
     async editAllFieldsUnsaved() {
         await this.clickEditIcon();
         await this.saveTaskButton.waitForExist({ timeout: 30000 });
-        await this.assignUserDropdown.waitForClickable({ timeout: 30000 });
-        await this.assignUserDropdown.click();
+        await this.whenClickable(this.assignUserDropdown);
         await this.selectNewMilestone();
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskText(newTaskDescription);
@@ -251,8 +248,7 @@ class Tasks extends testUrl {
     async editAllFields() {
         await this.clickEditIcon();
         await this.saveTaskButton.waitForExist({ timeout: 30000 });
-        await this.assignUserDropdown.waitForClickable({ timeout: 30000 });
-        await this.assignUserDropdown.click();
+        await this.whenClickable(this.assignUserDropdown);
         await this.selectNewMilestone();
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskText(newTaskDescription);
@@ -263,10 +259,10 @@ class Tasks extends testUrl {
     async editAllFieldsUnsavedDashboard() {
         await this.clickEditIcon();
         await this.saveTaskButton.waitForExist({ timeout: 30000 });
-        await this.assignUserDropdown.waitForClickable({ timeout: 30000 });
-        await this.assignUserDropdown.click();
+        await this.whenClickable(this.assignUserDropdown);
         const newTaskDescription = `Updated task description ${Date.now()}`;
-        await this.enterTaskText(newTaskDescription);
+        await this.enterTaskTextEdit(newTaskDescription);
+        await this.enterDueDateConditional();
         await this.selectMilestone();
         await this.cancelEdit();
     }
@@ -274,12 +270,12 @@ class Tasks extends testUrl {
     async editAllFieldsDashboard() {
         await this.clickEditIcon();
         await this.saveTaskButton.waitForExist({ timeout: 30000 });
-        await this.assignUserDropdown.waitForClickable({ timeout: 30000 });
-        await this.assignUserDropdown.click();
+        await this.whenClickable(this.assignUserDropdown);
         const newTaskDescription = `Updated task description ${Date.now()}`;
-        await this.enterTaskText(newTaskDescription);
+        await this.enterTaskTextEdit(newTaskDescription);
         await this.selectMilestone();
         await this.saveTask();
+    
     }
 
     async addingNotes() {
@@ -289,104 +285,6 @@ class Tasks extends testUrl {
         const noteText = `This is a test note ${Date.now()}`;
         await this.noteField.setValue(noteText);
         await this.whenClickable(this.addNoteButton);
-    }
-
-    async selectFirstCase() {
-        await browser.url('https://app.thecasework.com/case/ba3e61e7-8a1e-405b-968f-d201059f4b97');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectSecondCase() {
-        await browser.url('https://app.thecasework.com/case/5b1e2961-260a-4b1c-8f66-d7d0257ab0ee');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectThirdCase() {
-        await browser.url('https://app.thecasework.com/case/96f47b09-3a45-4a13-9f27-83ab113a9550');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectFourthCase() {
-        await browser.url('https://app.thecasework.com/case/d4d945c8-c966-4599-b647-8b9677997d43');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectFifthCase() {
-        await browser.url('https://app.thecasework.com/case/0a535084-088e-4345-9114-c7dc79cc5cfe');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectSixthCase() {
-        await browser.url('https://app.thecasework.com/case/b121cc5d-7310-4147-8bfd-7048a3c16ec3');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectSeventhCase() {
-        await browser.url('https://app.thecasework.com/case/f05c478f-4211-47ad-8ea4-9ebce4f61bdc');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectEighthCase() {
-        await browser.url('https://app.thecasework.com/case/a4430f97-e541-43ac-b9ec-2a5b59103029');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectNinthCase() {
-        await browser.url('https://app.thecasework.com/case/3e759be4-26a3-4add-8238-a64194bc1ba3');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectTenthCase() {
-        await browser.url('https://app.thecasework.com/case/6395222e-d225-492f-a6a3-7f0e021d1f3b');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectEleventhCase() {
-        await browser.url('https://app.thecasework.com/case/4c7b571b-a2f5-4d86-84cb-b8f9dbb671bf');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectTwelfthCase() {
-        await browser.url('https://app.thecasework.com/case/28398c10-f24c-4229-8246-d64eb2b1be58');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectThirteenthCase() {
-        await browser.url('https://app.thecasework.com/case/5309d590-1c80-4d68-a0c3-6c323f09d922');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
-    }
-
-    async selectFourteenthCase() {
-        await browser.url('https://app.thecasework.com/case/a67bca0e-88fa-4df3-878f-ca5f99a38f46');
-        await $('[data-testid="view-edit-case-tab-case-info"]').waitForClickable({ timeout: 30000 });
-        await $('[data-testid="view-edit-case-tab-case-info"]').click();
-        await $('span=AUTOTEST_Client').waitForDisplayed({ timeout: 30000 });
     }
 }
 

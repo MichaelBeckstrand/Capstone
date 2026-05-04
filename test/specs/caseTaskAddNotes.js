@@ -10,7 +10,7 @@ describe('Case Task Tests', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Tasks.navigateToCasePage('https://app.thecasework.com/case/f05c478f-4211-47ad-8ea4-9ebce4f61bdc');
+        await Tasks.selectSeventhCase();
 
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
@@ -21,6 +21,8 @@ describe('Case Task Tests', () => {
         await $('[aria-label="More items"]').waitForExist({ timeout: 30000 });
 
         await Tasks.addingNotes();
+        await Tasks.closeTask();
+        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
         await expect(Tasks.addNoteButton).not.toBeClickable();
     });
 });

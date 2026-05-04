@@ -4,18 +4,18 @@ import Tasks from '../pageobjects/caseTaskResources.js';
 
 describe('Case Task Tests', () => {
     it('should add a task and save', async () => {
-        // Login
+
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Tasks.navigateToCasePage('https://app.thecasework.com/case/0a535084-088e-4345-9114-c7dc79cc5cfe');
+        await Tasks.selectFifthCase();
 
         const taskDescription = `Case task testing ${Date.now()}`;
 
-        // Add task and save
+
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
         await Tasks.assignUserDropdown.waitForDisplayed({ timeout: 30000 });
         await Tasks.selectAssignTo();
@@ -23,9 +23,10 @@ describe('Case Task Tests', () => {
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
         await Tasks.saveTask();
-
+        await Tasks.closeTask();
+        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
         await expect($(`div=${taskDescription}`)).toBeDisplayed();
 
-        await LoginCredentials.logout.click();
+
     });
 });

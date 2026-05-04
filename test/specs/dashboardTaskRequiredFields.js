@@ -25,6 +25,7 @@ describe('Add Task', () => {
         await Tasks.selectMilestoneDashBoard();
         await expect(Tasks.saveTaskButton).not.toBeClickable();
         await browser.keys('Escape');
+        await browser.keys('Escape');
 
         await Tasks.whenClickable(Tasks.addTaskButton);
         await Tasks.enterTaskText(`Incomplete task ${Date.now()}`);

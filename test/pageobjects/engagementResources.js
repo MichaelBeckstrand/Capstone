@@ -1,7 +1,6 @@
 import { Key } from 'webdriverio';
-import testUrl from './testUrl.js';
 
-class Engagements extends testUrl {
+class Engagements {
 
     get EngagementTab() { 
         return $('span=Engagement'); }

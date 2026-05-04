@@ -20,6 +20,8 @@ describe('Add Task', () => {
         await Tasks.enterDueDate();
         await Tasks.selectMilestone();
         await Tasks.saveTask();
+        await Tasks.closeTask();
+        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
         await expect(Tasks.saveTaskButton).not.toBeDisplayed();
 
     });

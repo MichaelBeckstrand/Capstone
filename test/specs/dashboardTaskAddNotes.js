@@ -19,6 +19,8 @@ describe('Add Task', () => {
         await Tasks.saveTask();
 
         await Tasks.addingNotes();
+        await Tasks.closeTask();
+        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
         await expect(Tasks.addNoteButton).not.toBeClickable();
 
 

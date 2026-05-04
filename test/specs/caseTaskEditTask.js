@@ -3,15 +3,16 @@ import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/caseTaskResources.js';
 
 describe('Case Task Tests', () => {
-    it('should edit all task fields and save', async () => {
+    it('should edit task fields and save', async () => {
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Tasks.navigateToCasePage('https://app.thecasework.com/case/b121cc5d-7310-4147-8bfd-7048a3c16ec3');
+        await Tasks.selectSixthCase();
 
+        //creating new task
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
         await Tasks.selectAssignTo();
@@ -19,8 +20,10 @@ describe('Case Task Tests', () => {
         await Tasks.enterTaskText(setupTask);
         await Tasks.saveTask();
         await Tasks.kebabMenuButton.waitForExist({ timeout: 30000 });
-
+        //Editing created task
         await Tasks.editAllFieldsCase();
+        await Tasks.closeTask();
+        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
         await expect(Tasks.saveTaskButton).not.toBeClickable();
     });
 });

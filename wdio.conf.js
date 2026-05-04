@@ -29,7 +29,6 @@ export const config = {
         './test/specs/caseTaskAddTaskNoSave.js',
         './test/specs/dashboardTaskAddTaskBillable.js',
         './test/specs/caseTaskAddTask.js',
-        './test/specs/dashboardTaskAddTaskBillable.js',
         './test/specs/caseTaskAddTaskBillable.js',
         './test/specs/dashboardTaskEditTaskNoSave.js',
         './test/specs/engagementTitleTest.js',
@@ -70,7 +69,7 @@ export const config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 3,
+    maxInstances: 1,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:

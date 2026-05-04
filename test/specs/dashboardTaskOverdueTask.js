@@ -19,7 +19,8 @@ describe('Add Task', () => {
         await Tasks.enterPastDueDate();
         await Tasks.selectMilestone();
         await Tasks.saveTask();
-
         await expect(Tasks.overdueIndicator).toBeDisplayed();
+        await Tasks.closeTask();
+        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
     });
 });

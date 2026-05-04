@@ -2,7 +2,7 @@ import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/taskResources.js';
 
 describe('Add Task', () => {
-    it('should edit all task fields and save', async () => {
+    it('should edit task fields and save', async () => {
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
@@ -19,6 +19,8 @@ describe('Add Task', () => {
         await $('[data-testid^="task-control-edit-"]').waitForExist({ timeout: 30000 });
 
         await Tasks.editAllFieldsDashboard();
+        await Tasks.closeTask();
+        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
         await expect(Tasks.saveTaskButton).not.toBeClickable();
 
     });

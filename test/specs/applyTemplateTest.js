@@ -1,7 +1,7 @@
 import { browser, expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Engagements from '../pageobjects/engagementResources.js';
-import Tasks from '../pageobjects/taskResources.js';
+import Tasks from '../pageobjects/caseTaskResources.js';
 
 describe('Engagement Template', () => {
     it('should apply a template, execute and unexecute, and persist engagement text', async () => {
