@@ -12,7 +12,7 @@ describe('Case Task Tests', () => {
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
         await Tasks.selectSixthCase();
 
-        //creating new task
+        
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
         await Tasks.selectAssignTo();
@@ -20,7 +20,7 @@ describe('Case Task Tests', () => {
         await Tasks.enterTaskText(setupTask);
         await Tasks.saveTask();
         await Tasks.kebabMenuButton.waitForExist({ timeout: 30000 });
-        //Editing created task
+        
         await Tasks.editAllFieldsCase();
         await Tasks.closeTask();
         await expect(Tasks.closeTaskButton).not.toBeDisplayed();

@@ -6,12 +6,6 @@ class CaseTasks extends Tasks {
     get caseAddTaskButton() {
         return $('[data-testid="case-tasks-add-task-button"]');
     }
-    get selectCaseNewMilestoneDropdown() {
-        return $('[role="option"]*=#2 - New Milestone');
-    }
-    get assignToFirstOption() {
-        return $('[role="option"]');
-    }
     get assignToSecondOption() {
         return $('[data-testid="user-filter-menu-0f9de2be-804b-425c-9602-38b4bac5c9a4-option"]');
     }
@@ -30,10 +24,8 @@ class CaseTasks extends Tasks {
 
     async clickKebabMenu() {
         await this.kebabMenuButton.waitForExist({ timeout: 30000 });
-        await browser.execute(() => {
-            const btns = document.querySelectorAll('[aria-label="More items"]');
-            if (btns.length > 0) btns[0].click();
-        });
+        const btns = await $$('[aria-label="More items"]');
+        if (btns.length > 0) await this.forceClick(btns[0]);
         await $('[role="menu"]').waitForDisplayed({ timeout: 30000 });
     }
 
@@ -44,10 +36,8 @@ class CaseTasks extends Tasks {
 
     async completeTask() {
         await this.whenClickable(this.milestoneFilterButton);
-        await browser.execute(() => {
-            const btns = document.querySelectorAll('[aria-label="More items"]');
-            if (btns.length > 0) btns[0].click();
-        });
+        const btns = await $$('[aria-label="More items"]');
+        if (btns.length > 0) await this.forceClick(btns[0]);
         await this.whenClickable($('[data-testid="custom-data-table-context-menu-item-Complete Task"]'));
     }
 
@@ -66,7 +56,7 @@ class CaseTasks extends Tasks {
         await this.whenClickable(this.assignUserDropdown);
         await $('[role="listbox"]').waitForDisplayed({ timeout: 30000 });
         await $('[role="option"]').waitForExist({ timeout: 30000 });
-        await browser.execute(() => document.querySelector('[role="option"]').click());
+        await this.forceClick($('[role="option"]'));
     }
 
     async selectSecondAssignTo() {

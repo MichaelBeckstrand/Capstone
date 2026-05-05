@@ -1,6 +1,6 @@
 import { expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
-import Tasks from '../pageobjects/taskResources.js';
+import Tasks from '../pageobjects/taskResources.js'
 
 describe('Add Task', () => {
     it('should add a task and save', async () => {
@@ -19,10 +19,10 @@ describe('Add Task', () => {
         await Tasks.enterTaskText(taskDescription);
         await Tasks.selectMilestone();
         await Tasks.saveTask();
+        await expect($(`div=${taskDescription}`)).toBeDisplayed();
         await Tasks.closeTask();
         await expect(Tasks.closeTaskButton).not.toBeDisplayed();
-
-        await expect($(`div=${taskDescription}`)).toBeDisplayed();
+        
 
     });
 });

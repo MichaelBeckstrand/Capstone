@@ -1,3 +1,4 @@
+import { expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/taskResources.js';
 

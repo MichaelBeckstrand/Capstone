@@ -65,14 +65,8 @@ class Tasks {
     get addNoteButton() {
         return $('[data-testid="case-note-add-button"]');
     }
-    get taskHeader() {
-        return $('//div[contains(text(), "Add Task")]')
-    }
     get overdueIndicator() {
         return $('//div[contains(@class, "fui-Badge") and contains(., "Overdue")]');
-    }
-    get missingRequired() {
-        return $('.fui-MessageBarBody');
     }
     get caseAvatar() {
         return $('[data-testid="task-dialog-case-persona"]');
@@ -83,11 +77,21 @@ class Tasks {
         await element.click();
     }
 
+    async forceClick(element) {
+        await browser.execute(el => el.click(), await element);
+    }
+
+    async clearAndType(element, text) {
+        await element.waitForClickable({ timeout: 30000 });
+        await element.clearValue();
+        await element.setValue(text);
+    }
+
     async selectCase() {
         await this.whenClickable(this.caseDropdown);
         await $('[role="listbox"]').waitForDisplayed({ timeout: 30000 });
         await $('[role="option"]').waitForExist({ timeout: 30000 });
-        await browser.execute(() => document.querySelector('[role="option"]').click());
+        await this.forceClick($('[role="option"]'));
         await this.caseAvatar.waitForDisplayed({ timeout: 30000 });
     }
 
@@ -97,7 +101,7 @@ class Tasks {
         await this.whenClickable(this.selectMilestoneDropdown);
         await $('[role="listbox"]').waitForDisplayed({ timeout: 120000 });
         await $('[role="option"]').waitForExist({ timeout: 120000 });
-        await browser.execute(() => document.querySelector('[role="option"]').click());
+        await this.forceClick($('[role="option"]'));
     }
 
     async selectMilestoneDashBoard() {
@@ -116,22 +120,18 @@ class Tasks {
     }
 
     async enterTaskText(text) {
-        await this.whenClickable(this.taskTextBox);
-        await this.taskTextBox.setValue(text);
+        await this.clearAndType(this.taskTextBox, text);
         await browser.keys(Key.Enter);
     }
+
     async enterTaskTextEdit(text) {
-        await this.whenClickable(this.taskTextBox);
-        await browser.keys([Key.Command, 'a'])
-        await this.taskTextBox.setValue(text);
+        await this.clearAndType(this.taskTextBox, text);
         await browser.keys(Key.Enter);
     }
 
     async enterDueDate() {
         await this.dueByCheckbox.waitForExist({ timeout: 30000 });
-        await browser.execute(() => {
-            document.querySelector('[data-testid="task-dialog-dueby-checkbox"]').click();
-        });
+        await this.forceClick(this.dueByCheckbox);
         await this.whenClickable(this.selectDate);
         await browser.keys(Key.ArrowLeft);
         await browser.keys(Key.Enter);
@@ -139,9 +139,7 @@ class Tasks {
 
     async enterPastDueDate() {
         await this.dueByCheckbox.waitForExist({ timeout: 30000 });
-        await browser.execute(() => {
-            document.querySelector('[data-testid="task-dialog-dueby-checkbox"]').click();
-        });
+        await this.forceClick(this.dueByCheckbox);
         await this.selectDate.waitForExist({ timeout: 30000 });
         await this.whenClickable(this.selectDate);
         await browser.keys(Key.ArrowLeft);
@@ -157,16 +155,12 @@ class Tasks {
 
     async clickBillable() {
         await this.billableCheckbox.waitForExist({ timeout: 30000 });
-        await browser.execute(() => {
-            document.querySelector('[data-testid="task-dialog-billable-button"]').click();
-        });
+        await this.forceClick(this.billableCheckbox);
     }
 
     async saveTask() {
         await this.saveTaskButton.waitForExist({ timeout: 30000 });
-        await browser.execute(() => {
-            document.querySelector('[data-testid="task-dialog-save-button"]').click();
-        });
+        await this.forceClick(this.saveTaskButton);
         await this.saveTaskButton.waitForClickable({ timeout: 30000, reverse: true });
     }
 
@@ -180,10 +174,7 @@ class Tasks {
             await taskRows[taskRows.length - 1].moveTo();
         }
         await this.selectAddtime.waitForExist({ timeout: 30000 });
-        await browser.execute(() => {
-            const btn = document.querySelector('[data-testid="timercontrol-add-time-button"]');
-            if (btn) btn.click();
-        });
+        await this.forceClick(this.selectAddtime);
     }
 
     async enterHours(value) {
@@ -193,31 +184,20 @@ class Tasks {
 
     async completeTask() {
         await $('[data-testid^="task-control-complete-"]').waitForExist({ timeout: 30000 });
-        await browser.execute(() => {
-            const btns = document.querySelectorAll('[data-testid^="task-control-complete-"]');
-            if (btns.length > 0) btns[btns.length - 1].click();
-        });
+        const completeBtns = await $$('[data-testid^="task-control-complete-"]');
+        if (completeBtns.length > 0) await this.forceClick(completeBtns[completeBtns.length - 1]);
     }
 
     async closeTask() {
         await $('[data-testid^="task-control-close-"]').waitForExist({ timeout: 30000 });
-        await browser.execute(() => {
-            const btns = document.querySelectorAll('[data-testid^="task-control-close-"]');
-            if (btns.length > 0) btns[btns.length - 1].click();
-        });
-    }
-
-    async clickOnEditTaskIcon() {
-        await this.editTaskIcon.waitForExist({ timeout: 30000 });
-        await browser.execute(el => el.click(), await this.editTaskIcon);
+        const closeBtns = await $$('[data-testid^="task-control-close-"]');
+        if (closeBtns.length > 0) await this.forceClick(closeBtns[closeBtns.length - 1]);
     }
 
     async clickEditIcon() {
         await $('[data-testid^="task-control-edit-"]').waitForExist({ timeout: 30000 });
-        await browser.execute(() => {
-            const editbtn = document.querySelectorAll('[data-testid^="task-control-edit-"]');
-            if (editbtn.length > 0) editbtn[editbtn.length - 1].click();
-        });
+        const editbtns = await $$('[data-testid^="task-control-edit-"]');
+        if (editbtns.length > 0) await this.forceClick(editbtns[editbtns.length - 1]);
     }
 
     async cancelEdit() {
@@ -262,7 +242,6 @@ class Tasks {
         await this.whenClickable(this.assignUserDropdown);
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskTextEdit(newTaskDescription);
-        await this.enterDueDateConditional();
         await this.selectMilestone();
         await this.cancelEdit();
     }
@@ -275,15 +254,13 @@ class Tasks {
         await this.enterTaskTextEdit(newTaskDescription);
         await this.selectMilestone();
         await this.saveTask();
-    
     }
 
     async addingNotes() {
         await this.clickEditIcon();
         await this.whenClickable(this.noteButton);
-        await this.whenClickable(this.noteField);
         const noteText = `This is a test note ${Date.now()}`;
-        await this.noteField.setValue(noteText);
+        await this.clearAndType(this.noteField, noteText);
         await this.whenClickable(this.addNoteButton);
     }
 }

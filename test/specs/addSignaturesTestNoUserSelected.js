@@ -13,7 +13,7 @@ describe('Authentication', () => {
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
         await Tasks.selectThirdCase();
         await Engagements.clickEngagementTab();
-        await Engagements.ensureUnexecuted();
+    
 
         const isChecked = await Engagements.signatureBox.isSelected();
         if (!isChecked) {

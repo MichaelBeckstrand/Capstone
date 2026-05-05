@@ -14,7 +14,6 @@ describe('Authentication', () => {
         await Tasks.selectThirteenthCase();
         await Engagements.clickEngagementTab();
         await expect(Engagements.engagementDoc).toBeDisplayed();
-        await Engagements.ensureUnexecuted();
         const title = `Updated Title ${Date.now()}`;
         await Engagements.enterNewTitle(title);
         await Engagements.saveEngagement();
