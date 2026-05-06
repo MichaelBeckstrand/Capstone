@@ -11,7 +11,7 @@ describe('Authentication', () => {
             process.env.LOGIN_PASSWORD
         );
         await LoginCredentials.loggedIn.waitForDisplayed({ timeout: 30000 });
-        await Tasks.selectFirstCase();
+        await Tasks.goToCase('ba3e61e7-8a1e-405b-968f-d201059f4b97');
         await Engagements.clickEngagementTab();
         await (await Engagements.applyTemplateButton).waitForClickable({ timeout: 30000 });
 
@@ -28,10 +28,10 @@ describe('Authentication', () => {
         await Engagements.deletingMtechSignature();
         await Engagements.deletingClientSignature(); 
 
-        let buttons = await $$('[data-testid="person-control-delete-button"]');
+        let buttons = await Engagements.signatureDeleteButton;
         while (buttons.length > 1) {
             await buttons[1].click();
-            buttons = await $$('[data-testid="person-control-delete-button"]');
+            buttons = await Engagements.signatureDeleteButton;
         }
         await Engagements.clickSignatureBox();
         await Engagements.clickSaveButton();

@@ -11,7 +11,7 @@ describe('Authentication', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Tasks.selectThirdCase();
+        await Tasks.goToCase('96f47b09-3a45-4a13-9f27-83ab113a9550');
         await Engagements.clickEngagementTab();
     
 

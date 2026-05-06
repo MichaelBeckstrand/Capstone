@@ -56,7 +56,9 @@ class Engagements {
     get undoChangesButton() {
         return $('button.fui-SplitButton__menuButton'); }
     get pdf() { return $('iframe'); }
-
+    get signatureDeleteButton() {
+        return $$('[data-testid="person-control-delete-button"]')
+    }
     async whenClickable(element) {
         await element.waitForExist({ timeout: 30000 });
         await element.waitForClickable({ timeout: 30000 });
@@ -88,14 +90,14 @@ class Engagements {
     }
 
     async addingUserSignature() {
-        await $('input[id^="checkbox-"]:not([data-testid="engagement-page-add-signatures-checkbox"])').waitForExist({ timeout: 30000 });
+        await this.addUserSignature.waitForExist({ timeout: 30000 });
         await this.forceClick(this.addUserSignature);
         await this.selectUsersButton.click();
     }
 
     async deletingClientSignature() {
         await (await this.deleteClientSignature).waitForClickable({ timeout: 30000 });
-        const buttons = await $$('[data-testid="person-control-delete-button"]');
+        const buttons = await this.signatureDeleteButton;
         await buttons[1].click();
     }
 
@@ -105,7 +107,7 @@ class Engagements {
     }
 
     async addingClientSignature() {
-        await $('input[id^="checkbox-"]:not([data-testid="engagement-page-add-signatures-checkbox"])').waitForExist({ timeout: 30000 });
+        await this.addUserSignature.waitForExist({ timeout: 30000 });
         await this.addClientSignature.click();
         await this.selectContactsButton.click();
     }
@@ -117,9 +119,7 @@ class Engagements {
 
     async clickMtechAddSignatory() {
         await (await this.mtechAddSignatory).waitForClickable({ timeout: 30000 });
-        await $('[data-testid="link-button-Add Signatory"]').waitForExist({ timeout: 30000 });
-        const signatoryButtons = await $$('[data-testid="link-button-Add Signatory"]');
-        await this.forceClick(signatoryButtons[0]);
+        await this.forceClick(this.mtechAddSignatory);
     }
 
     async clickSelectUsersButton() {
@@ -171,7 +171,6 @@ class Engagements {
     async clickEngagementTab() {
         await this.EngagementTab.waitForClickable();
         await this.EngagementTab.click();
-        await this.engagementDoc.waitForDisplayed({ timeout: 30000 });
     }
 
 }

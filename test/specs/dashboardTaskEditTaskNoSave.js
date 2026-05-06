@@ -9,7 +9,7 @@ describe('Add Task', () => {
             process.env.LOGIN_USERNAME,
             process.env.LOGIN_PASSWORD
         );
-        await $('[role="grid"]').waitForDisplayed({ timeout: 30000 });
+        await Tasks.findGrid.waitForDisplayed({ timeout: 30000 });
 
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.addTaskButton);
@@ -17,7 +17,7 @@ describe('Add Task', () => {
         await Tasks.enterTaskText(setupTask);
         await Tasks.selectMilestone();
         await Tasks.saveTask();
-        await $('[data-testid^="task-control-edit-"]').waitForExist({ timeout: 30000 });
+        await Tasks.editTaskIcon.waitForExist({ timeout: 30000 });
 
         await Tasks.editAllFieldsUnsavedDashboard();
         await expect(Tasks.cancelTaskButton).not.toBeDisplayed();

@@ -10,7 +10,7 @@ describe('Case Task Tests', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Tasks.selectSixthCase();
+        await Tasks.goToCase('b121cc5d-7310-4147-8bfd-7048a3c16ec3');
 
         
         const setupTask = `Setup task ${Date.now()}`;

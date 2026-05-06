@@ -10,7 +10,7 @@ describe('Case Task Tests', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Tasks.selectEleventhCase();
+        await Tasks.goToCase('4c7b571b-a2f5-4d86-84cb-b8f9dbb671bf');
 
         const taskDescription = `Overdue task testing ${Date.now()}`;
 

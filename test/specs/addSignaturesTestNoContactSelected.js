@@ -11,7 +11,7 @@ describe('Authentication', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Tasks.selectSecondCase();
+        await Tasks.goToCase('5b1e2961-260a-4b1c-8f66-d7d0257ab0ee');
         await Engagements.clickEngagementTab();
 
         const isChecked = await Engagements.signatureBox.isSelected();

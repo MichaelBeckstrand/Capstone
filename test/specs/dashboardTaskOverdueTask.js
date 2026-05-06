@@ -9,7 +9,7 @@ describe('Add Task', () => {
             process.env.LOGIN_USERNAME,
             process.env.LOGIN_PASSWORD
         );
-        await $('[role="grid"]').waitForDisplayed({ timeout: 30000 });
+        await Tasks.findGrid.waitForDisplayed({ timeout: 30000 });
 
         const taskDescription = `Overdue task testing ${Date.now()}`;
 

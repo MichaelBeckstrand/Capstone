@@ -11,7 +11,7 @@ describe('Engagement Template', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Tasks.selectFourthCase();
+        await Tasks.goToCase('d4d945c8-c966-4599-b647-8b9677997d43');
         await Engagements.clickEngagementTab();
         await Engagements.ensureUnexecuted();
 

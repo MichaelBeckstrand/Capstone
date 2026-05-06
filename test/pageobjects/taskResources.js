@@ -48,7 +48,10 @@ class Tasks {
         return $('[data-testid="task-dialog-textarea"]');
     }
     get editTaskIcon() {
-        return $('[data-testid="task-control-edit-57def966-ecb3-4ab9-ae53-1d91962278e2"]');
+        return $('[data-testid^="task-control-edit-"]');
+    }
+    get editTaskIcons() {
+        return $$('[data-testid^="task-control-edit-"]');
     }
     get completeTaskButton() {
         return $('[data-testid^="task-control-complete-"]');
@@ -71,6 +74,18 @@ class Tasks {
     get caseAvatar() {
         return $('[data-testid="task-dialog-case-persona"]');
     }
+    get listbox() {
+        return $('[role="listbox"]');
+    }
+    get option() {
+        return $('[role="option"]');
+    }
+    get findGrid() {
+        return $('[role="grid"]');
+    }
+    get findMenu() {
+        return $('[role="menu"]')
+    }
 
     async whenClickable(element) {
         await element.waitForClickable({ timeout: 30000 });
@@ -83,15 +98,16 @@ class Tasks {
 
     async clearAndType(element, text) {
         await element.waitForClickable({ timeout: 30000 });
-        await element.clearValue();
-        await element.setValue(text);
+        await element.click();
+        await browser.keys(['Meta', 'a']);
+        await browser.keys(text);
     }
 
     async selectCase() {
         await this.whenClickable(this.caseDropdown);
-        await $('[role="listbox"]').waitForDisplayed({ timeout: 30000 });
-        await $('[role="option"]').waitForExist({ timeout: 30000 });
-        await this.forceClick($('[role="option"]'));
+        await this.listbox.waitForDisplayed({ timeout: 30000 });
+        await this.option.waitForExist({ timeout: 30000 });
+        await this.forceClick(this.option);
         await this.caseAvatar.waitForDisplayed({ timeout: 30000 });
     }
 
@@ -99,23 +115,23 @@ class Tasks {
         await this.caseAvatar.waitForDisplayed({ timeout: 30000 });
         await browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
-        await $('[role="listbox"]').waitForDisplayed({ timeout: 120000 });
-        await $('[role="option"]').waitForExist({ timeout: 120000 });
-        await this.forceClick($('[role="option"]'));
+        await this.listbox.waitForDisplayed({ timeout: 120000 });
+        await this.option.waitForExist({ timeout: 120000 });
+        await this.forceClick(this.option);
     }
 
     async selectMilestoneDashBoard() {
         await browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
-        await $('[role="option"]').waitForExist({ timeout: 30000, reverse: true });
+        await this.option.waitForExist({ timeout: 30000, reverse: true });
     }
 
     async selectNewMilestone() {
         await browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
-        await $('[role="listbox"]').waitForDisplayed({ timeout: 30000 });
-        await $('[role="option"]').waitForExist({ timeout: 30000 });
-        await $('[role="option"]').click();
+        await this.listbox.waitForDisplayed({ timeout: 30000 });
+        await this.option.waitForExist({ timeout: 30000 });
+        await this.option.click();
         await this.taskTextBox.waitForClickable({ timeout: 30000 });
     }
 
@@ -169,7 +185,7 @@ class Tasks {
     }
 
     async clickAddTimeButton() {
-        const taskRows = await $$('[data-testid^="task-control-edit-"]');
+        const taskRows = await this.editTaskIcon;
         if (taskRows.length > 0) {
             await taskRows[taskRows.length - 1].moveTo();
         }
@@ -183,21 +199,24 @@ class Tasks {
     }
 
     async completeTask() {
-        await $('[data-testid^="task-control-complete-"]').waitForExist({ timeout: 30000 });
-        const completeBtns = await $$('[data-testid^="task-control-complete-"]');
-        if (completeBtns.length > 0) await this.forceClick(completeBtns[completeBtns.length - 1]);
+        await this.completeTaskButton.waitForExist({ timeout: 30000 });
+        await this.completeTaskButton.moveTo();
+        await this.forceClick(this.completeTaskButton);
     }
 
     async closeTask() {
-        await $('[data-testid^="task-control-close-"]').waitForExist({ timeout: 30000 });
-        const closeBtns = await $$('[data-testid^="task-control-close-"]');
-        if (closeBtns.length > 0) await this.forceClick(closeBtns[closeBtns.length - 1]);
+        await this.closeTaskButton.waitForExist({ timeout: 30000 });
+        await this.closeTaskButton.moveTo();
+        await this.forceClick(this.closeTaskButton);
     }
 
     async clickEditIcon() {
-        await $('[data-testid^="task-control-edit-"]').waitForExist({ timeout: 30000 });
-        const editbtns = await $$('[data-testid^="task-control-edit-"]');
-        if (editbtns.length > 0) await this.forceClick(editbtns[editbtns.length - 1]);
+        await this.editTaskIcon.waitForExist({ timeout: 30000 });
+        const editbtns = await this.editTaskIcons;
+        if (editbtns.length > 0) {
+            await editbtns[editbtns.length - 1].moveTo();
+            await this.forceClick(editbtns[editbtns.length - 1]);
+        }
     }
 
     async cancelEdit() {

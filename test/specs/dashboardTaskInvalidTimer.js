@@ -9,7 +9,7 @@ describe('Add Task', () => {
             process.env.LOGIN_USERNAME,
             process.env.LOGIN_PASSWORD
         );
-        await $('[role="grid"]').waitForDisplayed({ timeout: 30000 });
+        await Tasks.findGrid.waitForDisplayed({ timeout: 30000 });
 
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.addTaskButton);
@@ -32,6 +32,9 @@ describe('Add Task', () => {
         await Tasks.enterHours('abcdefgh');
         await expect(Tasks.submitTimeButton).not.toBeClickable();
         await browser.keys('Escape');
+        await Tasks.closeTask();
+
+        
 
     });
 });

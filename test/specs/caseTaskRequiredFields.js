@@ -10,7 +10,7 @@ describe('Case Task Tests', () => {
             process.env.LOGIN_PASSWORD
         );
         await expect(LoginCredentials.loggedIn).toBeDisplayed();
-        await Tasks.selectTwelfthCase();
+        await Tasks.goToCase('28398c10-f24c-4229-8246-d64eb2b1be58');
 
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
         await expect(Tasks.saveTaskButton).not.toBeClickable();
