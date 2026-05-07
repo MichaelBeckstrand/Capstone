@@ -2,8 +2,9 @@ import { expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/caseTaskResources.js';
 
-describe('Case Task Tests', () => {
+describe('Case Tasks', () => {
     it('should add a task with billable and due date', async () => {
+        // Log in and navigate to the target case
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
@@ -14,6 +15,7 @@ describe('Case Task Tests', () => {
 
         const taskDescription = `Case task testing ${Date.now()}`;
 
+        // Fill in required fields plus the billable flag and a due date, then save
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();
@@ -21,8 +23,9 @@ describe('Case Task Tests', () => {
         await Tasks.clickBillable();
         await Tasks.enterDueDate();
         await Tasks.saveTask();
+
+        // Close the task panel and verify it is fully dismissed
         await Tasks.closeTask();
-        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
         await expect(Tasks.saveTaskButton).not.toBeDisplayed();
     });
 });

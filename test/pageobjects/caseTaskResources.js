@@ -3,41 +3,52 @@ import { Key } from 'webdriverio';
 
 class CaseTasks extends Tasks {
 
+    get caseInfoTab() {
+        return $('[data-testid="view-edit-case-tab-case-info"]');
+    }
+
+    get caseTaskTab() {
+        return $('[data-testid="view-edit-case-tab-tasks"]');
+    }
+
     get caseAddTaskButton() {
         return $('[data-testid="case-tasks-add-task-button"]');
     }
-    get assignToSecondOption() {
-        return $('[data-testid="user-filter-menu-0f9de2be-804b-425c-9602-38b4bac5c9a4-option"]');
-    }
+
     get kebabMenuButton() {
         return $('[aria-label="More items"]');
     }
-    get overdueIndicator() {
-        return $('span=Overdue');
+
+    get editTaskButton() {
+        return $('[data-testid="custom-data-table-context-menu-item-Edit Task"]');
     }
+
+    get completeTaskButton() {
+        return $('[data-testid="custom-data-table-context-menu-item-Complete Task"]');
+    }
+
+    get closeTaskButton() {
+        return $('[data-testid="custom-data-table-context-menu-item-Close Task"]');
+    }
+
     get caseAddTimeButton() {
         return $('[data-testid="custom-data-table-context-menu-item-Add Time"]');
     }
+
     get milestoneFilterButton() {
         return $('span=Milestone');
     }
+
+    get assignToSecondOption() {
+        return $('[data-testid="user-filter-menu-0f9de2be-804b-425c-9602-38b4bac5c9a4-option"]');
+    }
+
+    get overdueIndicator() {
+        return $('span=Overdue');
+    }
+
     get clientLabel() {
-        return $('span=AUTOTEST_Client')
-    }
-    get caseInfoTab() {
-        return $('[data-testid="view-edit-case-tab-case-info"]')
-    }
-    get caseTaskTab() {
-       return $('[data-testid="view-edit-case-tab-tasks"]')
-    }
-    get editTaskButton() {
-        return $('[data-testid="custom-data-table-context-menu-item-Edit Task"]')
-    }
-    get completeTaskButton() {
-        return $('[data-testid="custom-data-table-context-menu-item-Complete Task"]')
-    }
-    get closeTaskButton() {
-        return $('[data-testid="custom-data-table-context-menu-item-Close Task"]')
+        return $('span=AUTOTEST_Client');
     }
 
     async clickKebabMenu() {
@@ -53,9 +64,7 @@ class CaseTasks extends Tasks {
     }
 
     async completeTask() {
-        await this.whenClickable(this.milestoneFilterButton);
-        const btns = await this.kebabMenuButton;
-        if (btns.length > 0) await this.forceClick(btns[0]);
+        await this.clickKebabMenu();
         await this.whenClickable(this.completeTaskButton);
     }
 
@@ -88,7 +97,6 @@ class CaseTasks extends Tasks {
         await this.clientLabel.waitForDisplayed({ timeout: 30000 });
         await this.whenClickable(this.caseTaskTab);
     }
-
 
     async selectCaseNewMilestone() {
         browser.execute(() => window.focus());

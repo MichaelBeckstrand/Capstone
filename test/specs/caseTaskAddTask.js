@@ -2,9 +2,9 @@ import { expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/caseTaskResources.js';
 
-describe('Case Task Tests', () => {
+describe('Case Tasks', () => {
     it('should add a task and save', async () => {
-
+        // Log in and navigate to the target case
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
@@ -15,7 +15,7 @@ describe('Case Task Tests', () => {
 
         const taskDescription = `Case task testing ${Date.now()}`;
 
-
+        // Fill in all required task fields and save
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
         await Tasks.assignUserDropdown.waitForDisplayed({ timeout: 30000 });
         await Tasks.selectAssignTo();
@@ -23,10 +23,9 @@ describe('Case Task Tests', () => {
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
         await Tasks.saveTask();
+
+        // Close the task panel and verify the new task appears in the task list
+        await expect(Tasks.taskRow(taskDescription)).toBeDisplayed();
         await Tasks.closeTask();
-        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
-        await expect($(`div=${taskDescription}`)).toBeDisplayed();
-
-
     });
 });

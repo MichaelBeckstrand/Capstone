@@ -3,62 +3,113 @@ import { Key } from 'webdriverio';
 class Engagements {
 
     get EngagementTab() {
-        return $('span=Engagement'); }
+        return $('span=Engagement');
+    }
 
     get editIcon() {
-        return $('button[data-testid="editable-label-edit-button-title"]'); }
-    get engagementDoc() {
-        return $('div[class*="___17fy7t6"]'); }
-    get inputNewTitle() {
-        return $('input[data-testid="editable-label-title"]'); }
-    get engagementSaveButton() {
-        return $('[id*="primaryActionButton"]'); }
-    get executeButton() {
-        return $('[data-testid="engagement-page-execute-doc-btn"]'); }
-    get applyTemplate() {
-        return $('[data-testid="engagement-page-template-item-04b09f0a-cce7-48b2-a219-53c57ec0f68e"]'); }
-    get previewButton() {
-        return $('[data-testid="engagement-page-toggle-doc-btn"]'); }
-    get unexecuteButton() {
-        return $('[data-testid="engagement-executed-unexecute-menu-item"]'); }
-    get confirmExecuteButton() {
-        return $('[data-testid="confirmation-dialog-confirm-button"]'); }
-    get showfieldsButton() {
-        return $('[data-testid="engagement-page-toggle-doc-btn"]'); }
-    get kababUnexecuteMenu() {
-        return $('[data-testid="engagement-executed-more-options-button"]'); }
-    get applyTemplateButton() {
-        return $$('[data-testid="engagement-page-apply-template-btn"]')[0]; }
-    get engagementTextBox() {
-        return $('[data-testid="engagement-page-field-textarea-blah"]'); }
-    get mtechAddSignatory() {
-        return $$('[data-testid="link-button-Add Signatory"]')[0]; }
-    get signatureBox() {
-        return $('input[data-testid="engagement-page-add-signatures-checkbox"]'); }
-    get addUserSignature() {
-        return $('input[id^="checkbox-"]:not([data-testid="engagement-page-add-signatures-checkbox"])'); }
-    get selectUsersButton() {
-        return $('[data-testid="select-users-dialog-submit"]'); }
-    get addClientSignatory() {
-        return $$('[data-testid="link-button-Add Signatory"]')[1]; }
-    get addClientSignature() {
-        return $$('input[id^="checkbox-"]:not([data-testid="engagement-page-add-signatures-checkbox"])')[0]; }
-    get selectContactsButton() {
-        return $('[data-testid="select-contacts-submit-button"]'); }
-    get deleteMtechSignature() {
-        return $$('[data-testid="person-control-delete-button"]')[1]; }
-    get deleteClientSignature() {
-        return $$('[data-testid="person-control-delete-button"]')[2]; }
-    get removeFieldButton() {
-        return $('[data-testid="engagement-page-remove-field-btn-blah"]'); }
-    get toastNotification() {
-        return $('.fui-Toast'); }
-    get undoChangesButton() {
-        return $('button.fui-SplitButton__menuButton'); }
-    get pdf() { return $('iframe'); }
-    get signatureDeleteButton() {
-        return $$('[data-testid="person-control-delete-button"]')
+        return $('button[data-testid="editable-label-edit-button-title"]');
     }
+
+    get inputNewTitle() {
+        return $('input[data-testid="editable-label-title"]');
+    }
+
+    get engagementSaveButton() {
+        return $('[id*="primaryActionButton"]');
+    }
+
+    get executeButton() {
+        return $('[data-testid="engagement-page-execute-doc-btn"]');
+    }
+
+    get unexecuteButton() {
+        return $('[data-testid="engagement-executed-unexecute-menu-item"]');
+    }
+
+    get confirmExecuteButton() {
+        return $('[data-testid="confirmation-dialog-confirm-button"]');
+    }
+
+    get kababUnexecuteMenu() {
+        return $('[data-testid="engagement-executed-more-options-button"]');
+    }
+
+    get applyTemplate() {
+        return $('[data-testid="engagement-page-template-item-04b09f0a-cce7-48b2-a219-53c57ec0f68e"]');
+    }
+
+    get applyTemplateButton() {
+        return $$('[data-testid="engagement-page-apply-template-btn"]')[0];
+    }
+
+    get previewButton() {
+        return $('[data-testid="engagement-page-toggle-doc-btn"]');
+    }
+
+    get showfieldsButton() {
+        return $('[data-testid="engagement-page-toggle-doc-btn"]');
+    }
+
+    get engagementTextBox() {
+        return $('[data-testid="engagement-page-field-textarea-blah"]');
+    }
+
+    get removeFieldButton() {
+        return $('[data-testid="engagement-page-remove-field-btn-blah"]');
+    }
+
+    get mtechAddSignatory() {
+        return $$('[data-testid="link-button-Add Signatory"]')[0];
+    }
+
+    get addClientSignatory() {
+        return $$('[data-testid="link-button-Add Signatory"]')[1];
+    }
+
+    get signatureBox() {
+        return $('input[data-testid="engagement-page-add-signatures-checkbox"]');
+    }
+
+    get addUserSignature() {
+        return $('input[id^="checkbox-"]:not([data-testid="engagement-page-add-signatures-checkbox"])');
+    }
+
+    get selectUsersButton() {
+        return $('[data-testid="select-users-dialog-submit"]');
+    }
+
+    get addClientSignature() {
+        return $$('input[id^="checkbox-"]:not([data-testid="engagement-page-add-signatures-checkbox"])')[0];
+    }
+
+    get selectContactsButton() {
+        return $('[data-testid="select-contacts-submit-button"]');
+    }
+
+    get deleteMtechSignature() {
+        return $$('[data-testid="person-control-delete-button"]')[1];
+    }
+
+    get deleteClientSignature() {
+        return $$('[data-testid="person-control-delete-button"]')[2];
+    }
+
+    get signatureDeleteButton() {
+        return $$('[data-testid="person-control-delete-button"]');
+    }
+
+    get toastNotification() {
+        return $('.fui-Toast');
+    }
+
+    get undoChangesButton() {
+        return $('button.fui-SplitButton__menuButton');
+    }
+
+    get pdf() {
+        return $('iframe');
+    }
+
     async whenClickable(element) {
         await element.waitForExist({ timeout: 30000 });
         await element.waitForClickable({ timeout: 30000 });
@@ -95,10 +146,10 @@ class Engagements {
         await this.selectUsersButton.click();
     }
 
-    async deletingClientSignature() {
-        await (await this.deleteClientSignature).waitForClickable({ timeout: 30000 });
-        const buttons = await this.signatureDeleteButton;
-        await buttons[1].click();
+    async addingClientSignature() {
+        await this.addUserSignature.waitForExist({ timeout: 30000 });
+        await this.addClientSignature.click();
+        await this.selectContactsButton.click();
     }
 
     async deletingMtechSignature() {
@@ -106,10 +157,10 @@ class Engagements {
         await this.deleteMtechSignature.click();
     }
 
-    async addingClientSignature() {
-        await this.addUserSignature.waitForExist({ timeout: 30000 });
-        await this.addClientSignature.click();
-        await this.selectContactsButton.click();
+    async deletingClientSignature() {
+        await (await this.deleteClientSignature).waitForClickable({ timeout: 30000 });
+        const buttons = await this.signatureDeleteButton;
+        await buttons[1].click();
     }
 
     async clickSignatureBox() {
@@ -118,13 +169,8 @@ class Engagements {
     }
 
     async clickMtechAddSignatory() {
-        await (await this.mtechAddSignatory).waitForClickable({ timeout: 30000 });
+        await this.mtechAddSignatory.waitForClickable({ timeout: 30000 });
         await this.forceClick(this.mtechAddSignatory);
-    }
-
-    async clickSelectUsersButton() {
-        await this.selectUsersButton.waitForExist({ timeout: 30000 });
-        await this.forceClick(this.selectUsersButton);
     }
 
     async clickClientAddSignatory() {
@@ -133,14 +179,18 @@ class Engagements {
         await this.forceClick(this.addClientSignatory);
     }
 
+    async clickSelectUsersButton() {
+        await this.selectUsersButton.waitForExist({ timeout: 30000 });
+        await this.forceClick(this.selectUsersButton);
+    }
+
     async enterNewTitle(text) {
-        await this.engagementDoc.moveTo();
         await this.editIcon.waitForExist({ timeout: 30000 });
         await browser.execute(el => el.classList.remove('hidden'), await this.editIcon);
         await this.editIcon.click();
         await this.inputNewTitle.waitForDisplayed();
         await this.inputNewTitle.click();
-        await browser.keys([Key.Command, 'a']);
+        await browser.keys(['Command', 'a']);
         await browser.keys(text);
         await browser.keys(Key.Enter);
     }
@@ -172,7 +222,6 @@ class Engagements {
         await this.EngagementTab.waitForClickable();
         await this.EngagementTab.click();
     }
-
 }
 
 export default new Engagements();

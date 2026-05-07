@@ -2,8 +2,9 @@ import { browser, expect } from '@wdio/globals';
 import LoginCredentials from '../pageobjects/loginCredencials.js';
 import Tasks from '../pageobjects/caseTaskResources.js';
 
-describe('Case Task Tests', () => {
+describe('Case Tasks', () => {
     it('should add a task without saving', async () => {
+        // Log in and navigate to the target case
         await LoginCredentials.url();
         await LoginCredentials.login(
             process.env.LOGIN_USERNAME,
@@ -14,12 +15,14 @@ describe('Case Task Tests', () => {
 
         const taskDescription = `Case task testing ${Date.now()}`;
 
+        // Fill in the task form but refresh the page instead of saving
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
         await browser.refresh();
-        await expect($(`div=${taskDescription}`)).not.toBeDisplayed();
 
+        // Verify the unsaved task does not appear in the task list
+        await expect(Tasks.taskRow(taskDescription)).not.toBeDisplayed();
     });
 });
