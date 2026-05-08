@@ -16,6 +16,7 @@ describe('Case Tasks', () => {
         // Create a setup task to act on
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
+        await Tasks.enterTitleText();
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);

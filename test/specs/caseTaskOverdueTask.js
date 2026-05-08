@@ -17,6 +17,7 @@ describe('Case Tasks', () => {
 
         // Create a task with a past due date and save
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
+        await Tasks.enterTitleText();
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);

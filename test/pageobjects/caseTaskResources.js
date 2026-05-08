@@ -35,10 +35,6 @@ class CaseTasks extends Tasks {
         return $('[data-testid="custom-data-table-context-menu-item-Add Time"]');
     }
 
-    get milestoneFilterButton() {
-        return $('span=Milestone');
-    }
-
     get assignToSecondOption() {
         return $('[data-testid="user-filter-menu-0f9de2be-804b-425c-9602-38b4bac5c9a4-option"]');
     }
@@ -49,6 +45,10 @@ class CaseTasks extends Tasks {
 
     get clientLabel() {
         return $('span=AUTOTEST_Client');
+    }
+
+    get toastNotification() {
+        return $('.fui-Toast');
     }
 
     async clickKebabMenu() {
@@ -113,7 +113,6 @@ class CaseTasks extends Tasks {
         await this.selectCaseNewMilestone();
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskText(newTaskDescription);
-        await this.enterDueDateConditional();
         await this.cancelEdit();
     }
 

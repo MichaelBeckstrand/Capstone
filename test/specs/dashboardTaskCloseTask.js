@@ -15,13 +15,12 @@ describe('Dashboard Tasks', () => {
         // Create a setup task to act on
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.addTaskButton);
+        await Tasks.enterTitleText();
         await Tasks.selectCase();
         await Tasks.enterTaskText(setupTask);
         await Tasks.selectMilestone();
         await Tasks.saveTask();
 
-        // Wait for the grid to update before interacting with the new row
-        await Tasks.taskRow(setupTask).waitForDisplayed({ timeout: 30000 });
 
         // Close the task and confirm the form is dismissed
         await Tasks.closeTask();

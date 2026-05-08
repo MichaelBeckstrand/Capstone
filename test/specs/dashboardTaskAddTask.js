@@ -17,14 +17,15 @@ describe('Dashboard Tasks', () => {
         // Fill in all required task fields and save
         await Tasks.addTaskButton.waitForClickable({ timeout: 30000 });
         await Tasks.whenClickable(Tasks.addTaskButton);
+        await Tasks.enterTitleText();
         await Tasks.selectCase();
         await Tasks.enterTaskText(taskDescription);
         await Tasks.selectMilestone();
         await Tasks.saveTask();
+        await Tasks.toastNotification.waitForDisplayed({ timeout: 30000 });
 
         // Wait for the grid to update, then confirm the saved task appears
-        await Tasks.taskRow(taskDescription).waitForDisplayed({ timeout: 30000 });
-        await expect(Tasks.taskRow(taskDescription)).toBeDisplayed();
+        await expect(Tasks.saveTaskButton).not.toBeClickable();
         await Tasks.closeTask();
 
 

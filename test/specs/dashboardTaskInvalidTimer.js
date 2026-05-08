@@ -15,6 +15,7 @@ describe('Dashboard Tasks', () => {
         // Create a setup task to act on
         const setupTask = `Setup task ${Date.now()}`;
         await Tasks.whenClickable(Tasks.addTaskButton);
+        await Tasks.enterTitleText();
         await Tasks.selectCase();
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);

@@ -16,6 +16,7 @@ describe('Dashboard Tasks', () => {
 
         // Create a task with a past due date and save
         await Tasks.whenClickable(Tasks.addTaskButton);
+        await Tasks.enterTitleText();
         await Tasks.selectCase();
         await Tasks.enterTaskText(taskDescription);
         await Tasks.enterPastDueDate();

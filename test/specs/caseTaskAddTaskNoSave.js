@@ -17,6 +17,7 @@ describe('Case Tasks', () => {
 
         // Fill in the task form but refresh the page instead of saving
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
+        await Tasks.enterTitleText();
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);

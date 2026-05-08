@@ -102,10 +102,6 @@ class Engagements {
         return $('.fui-Toast');
     }
 
-    get undoChangesButton() {
-        return $('button.fui-SplitButton__menuButton');
-    }
-
     get pdf() {
         return $('iframe');
     }
@@ -177,11 +173,6 @@ class Engagements {
         await this.addClientSignatory.waitForExist({ timeout: 30000 });
         await (await this.addClientSignatory).waitForClickable({ timeout: 30000 });
         await this.forceClick(this.addClientSignatory);
-    }
-
-    async clickSelectUsersButton() {
-        await this.selectUsersButton.waitForExist({ timeout: 30000 });
-        await this.forceClick(this.selectUsersButton);
     }
 
     async enterNewTitle(text) {

@@ -10,10 +10,6 @@ class Tasks {
         return $('[data-testid="case-filter-menu"]');
     }
 
-    get selectCaseDropdown() {
-        return $('[data-testid="case-control-e3eba00b-1d70-4a5e-92a4-61111f5521f8"]');
-    }
-
     get selectMilestoneDropdown() {
         return $('[data-testid="milestone-dropdown-menu"]');
     }
@@ -22,8 +18,12 @@ class Tasks {
         return $('[data-testid="user-filter-menu"]');
     }
 
-    get taskDescriptionInput() {
-        return $('[data-testid="task-description-input"]');
+    get enterTitle() {
+        return $('[data-testid="editable-label-title"]');
+    }
+
+    get discussionTab() {
+        return $('[role="tab"][value="Discussion"]');
     }
 
     get taskTextBox() {
@@ -46,6 +46,10 @@ class Tasks {
         return $('[data-testid="task-dialog-save-button"]');
     }
 
+    get confirmDiscard() {
+        return $('[data-testid="confirmation-dialog-confirm-button"]');
+    }
+
     get cancelTaskButton() {
         return $('[data-testid="task-dialog-cancel-button"]');
     }
@@ -64,10 +68,6 @@ class Tasks {
 
     get closeTaskButton() {
         return $('[data-testid^="task-control-close-"]');
-    }
-
-    get noteButton() {
-        return $('[data-testid="task-dialog-notes-toggle-button"]');
     }
 
     get noteField() {
@@ -114,6 +114,10 @@ class Tasks {
         return $('[role="menu"]');
     }
 
+    get toastNotification() {
+        return $('.fui-Toast');
+    }
+
     taskRow(text) {
         return $(`//*[contains(text(), "${text}")]`);
     }
@@ -154,7 +158,9 @@ class Tasks {
     async selectMilestoneDashBoard() {
         await browser.execute(() => window.focus());
         await this.whenClickable(this.selectMilestoneDropdown);
-        await this.option.waitForExist({ timeout: 30000, reverse: true });
+        await this.listbox.waitForDisplayed({ timeout: 120000 });
+        await this.option.waitForExist({ timeout: 120000 });
+        await this.forceClick(this.option);
     }
 
     async selectNewMilestone() {
@@ -164,6 +170,16 @@ class Tasks {
         await this.option.waitForExist({ timeout: 30000 });
         await this.option.click();
         await this.taskTextBox.waitForClickable({ timeout: 30000 });
+    }
+
+    async clickDiscussionTab() {
+        await this.whenClickable(this.discussionTab);
+    }
+
+    async enterTitleText() {
+        const titleText = `Test Title ${Date.now()}`;
+        await this.clearAndType(this.enterTitle, titleText);
+        return titleText;
     }
 
     async enterTaskText(text) {
@@ -177,16 +193,12 @@ class Tasks {
     }
 
     async enterDueDate() {
-        await this.dueByCheckbox.waitForExist({ timeout: 30000 });
-        await this.forceClick(this.dueByCheckbox);
         await this.whenClickable(this.selectDate);
         await browser.keys(Key.ArrowLeft);
         await browser.keys(Key.Enter);
     }
 
     async enterPastDueDate() {
-        await this.dueByCheckbox.waitForExist({ timeout: 30000 });
-        await this.forceClick(this.dueByCheckbox);
         await this.selectDate.waitForExist({ timeout: 30000 });
         await this.whenClickable(this.selectDate);
         await browser.keys(Key.ArrowLeft);
@@ -219,10 +231,6 @@ class Tasks {
         await this.saveTaskButton.waitForExist({ timeout: 30000 });
         await this.forceClick(this.saveTaskButton);
         await this.saveTaskButton.waitForClickable({ timeout: 30000, reverse: true });
-    }
-
-    async clickSave() {
-        await this.whenClickable(this.saveTaskButton);
     }
 
     async clickAddTimeButton() {
@@ -262,34 +270,16 @@ class Tasks {
 
     async cancelEdit() {
         await this.whenClickable(this.cancelTaskButton);
-    }
-
-    async editAllFieldsUnsaved() {
-        await this.clickEditIcon();
-        await this.saveTaskButton.waitForExist({ timeout: 30000 });
-        await this.whenClickable(this.assignUserDropdown);
-        await this.selectNewMilestone();
-        const newTaskDescription = `Updated task description ${Date.now()}`;
-        await this.enterTaskText(newTaskDescription);
-        await this.enterDueDateConditional();
-        await this.cancelEdit();
-    }
-
-    async editAllFields() {
-        await this.clickEditIcon();
-        await this.saveTaskButton.waitForExist({ timeout: 30000 });
-        await this.whenClickable(this.assignUserDropdown);
-        await this.selectNewMilestone();
-        const newTaskDescription = `Updated task description ${Date.now()}`;
-        await this.enterTaskText(newTaskDescription);
-        await this.enterDueDateConditional();
-        await this.saveTask();
+        await this.whenClickable(this.confirmDiscard);
     }
 
     async editAllFieldsUnsavedDashboard() {
         await this.clickEditIcon();
         await this.saveTaskButton.waitForExist({ timeout: 30000 });
         await this.whenClickable(this.assignUserDropdown);
+        await this.listbox.waitForDisplayed({ timeout: 30000 });
+        await this.option.waitForExist({ timeout: 30000 });
+        await this.forceClick(this.option);
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskTextEdit(newTaskDescription);
         await this.selectMilestone();
@@ -311,7 +301,7 @@ class Tasks {
 
     async addingNotes() {
         await this.clickEditIcon();
-        await this.whenClickable(this.noteButton);
+        await this.clickDiscussionTab();
         const noteText = `This is a test note ${Date.now()}`;
         await this.clearAndType(this.noteField, noteText);
         await this.whenClickable(this.addNoteButton);

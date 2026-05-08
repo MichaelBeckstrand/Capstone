@@ -16,6 +16,7 @@ describe('Dashboard Tasks', () => {
 
         // Fill in the task form but refresh the page instead of saving
         await Tasks.whenClickable(Tasks.addTaskButton);
+        await Tasks.enterTitleText();
         await Tasks.selectCase();
         await Tasks.enterTaskText(taskDescription);
         await Tasks.selectMilestone();

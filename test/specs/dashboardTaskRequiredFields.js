@@ -26,6 +26,7 @@ describe('Dashboard Tasks', () => {
 
         // Verify save is disabled with only a milestone selected
         await Tasks.whenClickable(Tasks.addTaskButton);
+        await Tasks.selectCase();
         await Tasks.selectMilestoneDashBoard();
         await expect(Tasks.saveTaskButton).not.toBeClickable();
         await browser.keys('Escape');

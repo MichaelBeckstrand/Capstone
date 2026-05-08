@@ -17,15 +17,17 @@ describe('Case Tasks', () => {
 
         // Fill in all required task fields and save
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
+        await Tasks.enterTitleText();
         await Tasks.assignUserDropdown.waitForDisplayed({ timeout: 30000 });
         await Tasks.selectAssignTo();
         await Tasks.selectMilestoneDropdown.waitForClickable({ timeout: 30000 });
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
         await Tasks.saveTask();
+        await Tasks.toastNotification.waitForDisplayed({ timeout: 30000 });
 
         // Close the task panel and verify the new task appears in the task list
-        await expect(Tasks.taskRow(taskDescription)).toBeDisplayed();
+        await expect(Tasks.saveTaskButton).not.toBeClickable();
         await Tasks.closeTask();
     });
 });

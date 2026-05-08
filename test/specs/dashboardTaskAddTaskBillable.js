@@ -16,6 +16,7 @@ describe('Dashboard Tasks', () => {
 
         // Fill in required fields plus the billable flag and a due date, then save
         await Tasks.whenClickable(Tasks.addTaskButton);
+        await Tasks.enterTitleText();
         await Tasks.selectCase();
         await Tasks.enterTaskText(taskDescription);
         await Tasks.clickBillable();

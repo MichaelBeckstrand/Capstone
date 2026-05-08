@@ -17,6 +17,7 @@ describe('Case Tasks', () => {
 
         // Fill in required fields plus the billable flag and a due date, then save
         await Tasks.whenClickable(Tasks.caseAddTaskButton);
+        await Tasks.enterTitleText();
         await Tasks.selectAssignTo();
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(taskDescription);
