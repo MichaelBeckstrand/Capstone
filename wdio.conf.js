@@ -50,8 +50,8 @@ export const config = {
         './test/specs/dashboardTaskCloseTask.js',
         './test/specs/caseTaskCompleteTask.js',
         './test/specs/caseTaskCloseTask.js',
-        
-            
+
+
     ],
     //
     // ============

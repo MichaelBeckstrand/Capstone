@@ -20,6 +20,7 @@ describe('Dashboard Tasks', () => {
         await Tasks.enterTaskText(setupTask);
         await Tasks.selectMilestone();
         await Tasks.saveTask();
+        await Tasks.toastNotification.waitForDisplayed({ timeout: 30000 });
         await Tasks.editTaskIcon.waitForExist({ timeout: 30000 });
 
         // Edit task fields without saving and confirm changes are not persisted

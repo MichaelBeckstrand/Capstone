@@ -21,6 +21,7 @@ describe('Case Tasks', () => {
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);
         await Tasks.saveTask();
+        await Tasks.toastNotification.waitForDisplayed({ timeout: 30000 });
         await Tasks.kebabMenuButton.waitForExist({ timeout: 30000 });
 
         // Edit all fields but cancel without saving, then verify the cancel button is gone

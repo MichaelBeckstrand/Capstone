@@ -24,6 +24,6 @@ describe('Case Tasks', () => {
 
         // Mark the task complete and verify the complete button is no longer shown
         await Tasks.completeTask();
-        await expect(Tasks.saveTaskButton).not.toBeClickable();
+        await expect(Tasks.completeTaskButton).not.toBeDisplayed();
     });
 });

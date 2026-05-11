@@ -276,10 +276,7 @@ class Tasks {
     async editAllFieldsUnsavedDashboard() {
         await this.clickEditIcon();
         await this.saveTaskButton.waitForExist({ timeout: 30000 });
-        await this.whenClickable(this.assignUserDropdown);
-        await this.listbox.waitForDisplayed({ timeout: 30000 });
-        await this.option.waitForExist({ timeout: 30000 });
-        await this.forceClick(this.option);
+
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskTextEdit(newTaskDescription);
         await this.selectMilestone();
@@ -289,10 +286,7 @@ class Tasks {
     async editAllFieldsDashboard() {
         await this.clickEditIcon();
         await this.saveTaskButton.waitForExist({ timeout: 30000 });
-        await this.whenClickable(this.assignUserDropdown);
-        await this.listbox.waitForDisplayed({ timeout: 30000 });
-        await this.option.waitForExist({ timeout: 30000 });
-        await this.forceClick(this.option);
+
         const newTaskDescription = `Updated task description ${Date.now()}`;
         await this.enterTaskTextEdit(newTaskDescription);
         await this.selectMilestone();

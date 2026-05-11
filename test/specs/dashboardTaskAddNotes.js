@@ -20,6 +20,7 @@ describe('Dashboard Tasks', () => {
         await Tasks.enterTaskText(setupTask);
         await Tasks.selectMilestone();
         await Tasks.saveTask();
+        await Tasks.toastNotification.waitForDisplayed({ timeout: 30000 });
 
         // Add notes to the task, then close it and verify the task panel and note button are gone
         await Tasks.addingNotes();

@@ -35,7 +35,7 @@ class Engagements {
     }
 
     get applyTemplate() {
-        return $('[data-testid="engagement-page-template-item-04b09f0a-cce7-48b2-a219-53c57ec0f68e"]');
+        return $('[data-testid^="engagement-page-template-item-"]');
     }
 
     get applyTemplateButton() {

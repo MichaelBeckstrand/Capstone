@@ -27,6 +27,6 @@ describe('Case Tasks', () => {
         // Verify the overdue indicator appears, then close the task
         await expect(Tasks.overdueIndicator).toBeDisplayed();
         await Tasks.closeTask();
-        await expect(Tasks.saveTaskButton).not.toBeClickable();
+        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
     });
 });

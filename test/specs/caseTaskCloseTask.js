@@ -24,6 +24,6 @@ describe('Case Tasks', () => {
 
         // Close the task and verify the close button is no longer shown
         await Tasks.closeTask();
-        await expect(Tasks.saveTaskButton).not.toBeClickable();
+        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
     });
 });

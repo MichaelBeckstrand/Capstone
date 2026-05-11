@@ -21,11 +21,13 @@ describe('Case Tasks', () => {
         await Tasks.selectMilestone();
         await Tasks.enterTaskText(setupTask);
         await Tasks.saveTask();
+        await Tasks.toastNotification.waitForDisplayed({ timeout: 30000 });
         await Tasks.kebabMenuButton.waitForExist({ timeout: 30000 });
 
         // Edit all fields and save, then close and verify the task panel is fully dismissed
         await Tasks.editAllFieldsCase();
         await Tasks.closeTask();
+        await expect(Tasks.closeTaskButton).not.toBeDisplayed();
         await expect(Tasks.saveTaskButton).not.toBeClickable();
     });
 });
